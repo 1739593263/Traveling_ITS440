@@ -16,5 +16,16 @@ namespace Traveling
         {
             InitializeComponent();
         }
+
+        async void toLogin(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new Login());
+        }
+
+        async void toReserve(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new BuyFlightPage());
+        }
+
     }
 }

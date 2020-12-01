@@ -54,7 +54,7 @@ namespace Traveling
 
                     if (userlist[0].profession == "customer")
                     {
-                        await Navigation.PushAsync(new MainPage());
+                        await Navigation.PushAsync(new Navigation());
                     }
                     else if (userlist[0].profession == "admin")
                     {
