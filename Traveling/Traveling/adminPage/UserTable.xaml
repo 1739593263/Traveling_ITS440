@@ -1,0 +1,90 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.adminPage.UserTable" BackgroundColor="WhiteSmoke">
+    <ContentPage.Content>
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <StackLayout Grid.Row="1" Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                <Button x:Name="update" Clicked="updateC" Text="Update" IsEnabled="False"/>
+                <Button x:Name="delete" Clicked="deleteC" Text="Delete" IsEnabled="False"/>
+            </StackLayout>
+            
+            <ListView x:Name="allUsers" 
+                      Grid.Row="2" 
+                      HeightRequest="500" 
+                      RowHeight="200"
+                      ItemsSource="{Binding UsersList}"  
+                      ItemTapped="Row_tapped">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Vertical">
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                        <Label Text="Firstname: " FontSize="15"/>
+                                        <Entry x:Name="fn" Text="{Binding Firstname}" WidthRequest="70"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                        <Label Text="Lastname: " FontSize="15"/>
+                                        <Entry x:Name="ln" Text="{Binding Lastname}"  WidthRequest="70"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                        <Label Text="mail: " FontSize="15" HorizontalOptions="StartAndExpand"/>
+                                        <Entry x:Name="mail" Text="{Binding mail}" WidthRequest="170"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                        <Label Text="Birthday: " FontSize="15" HorizontalOptions="CenterAndExpand"/>
+                                        <DatePicker x:Name="bir" Date="{Binding birthday}" WidthRequest="70"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                        <Label Text="Username: " FontSize="15" HorizontalOptions="StartAndExpand"/>
+                                        <Entry x:Name="un" Text="{Binding username}" WidthRequest="70"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                        <Label Text="Password: " FontSize="15" HorizontalOptions="CenterAndExpand"/>
+                                        <Entry x:Name="pw" Text="{Binding password}" IsPassword="True"  WidthRequest="70"/>
+                                    </StackLayout>
+                                </StackLayout>
+
+                                <StackLayout Orientation="Horizontal">
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="StartAndExpand">
+                                        <Label Text="Gender: " FontSize="15" HorizontalOptions="StartAndExpand"/>
+                                        <Label x:Name="gen" Text="{Binding Gender}" FontSize="15"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+                                        <Label Text="Lcation: " FontSize="15" HorizontalOptions="CenterAndExpand"/>
+                                        <Entry x:Name="loc" Text="{Binding location}" WidthRequest="70"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" HorizontalOptions="EndAndExpand">
+                                        <Label Text="Profession: " FontSize="15" HorizontalOptions="EndAndExpand"/>
+                                        <Picker x:Name="pro" SelectedItem="{Binding profession}" WidthRequest="70">
+                                            <Picker.ItemsSource>
+                                                <x:Array Type="{x:Type x:String}">
+                                                    <x:String>customer</x:String>
+                                                    <x:String>service</x:String>
+                                                    <x:String>admin</x:String>
+                                                </x:Array>
+                                            </Picker.ItemsSource>
+                                        </Picker>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

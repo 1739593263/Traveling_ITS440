@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.adminPage.menu">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Horizontal" Grid.Row="0">
+                    <StackLayout Orientation="Vertical" Grid.Column="0" Padding="15" x:Name="UT">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="UT_Click"/>
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="usertable.png" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"/>
+                        <Label Text="User Table" VerticalOptions="EndAndExpand"></Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical" Grid.Column="1" Padding="15">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="FT_Click"/>
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="flighttable.png" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"/>
+                        <Label Text="Flight Table" VerticalOptions="EndAndExpand"></Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical" Grid.Column="2" Padding="15">
+                        <Image Source="train.png" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"/>
+                        <Label Text="Train Table" VerticalOptions="EndAndExpand"></Label>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Grid.Row="1">
+                    <StackLayout Orientation="Vertical" Grid.Column="0" Padding="15">
+                        <Image Source="order.png" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"/>
+                        <Label Text="Order Table" VerticalOptions="EndAndExpand"></Label>
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.adminPage.FlightTable">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackLayout Orientation="Vertical" 
+                             Grid.Row="0" 
+                             BackgroundColor="White">
+                    <StackLayout Orientation="Horizontal">
+                        <Picker x:Name="SPlace" WidthRequest="100" ItemsSource="{Binding PlacesList}" HorizontalOptions="StartAndExpand"></Picker>
+                        <Label Text="TO" FontSize="30" HorizontalOptions="CenterAndExpand"></Label>
+                        <Picker x:Name="DPlace" WidthRequest="100" ItemsSource="{Binding PlacesList}" HorizontalOptions="EndAndExpand"></Picker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <DatePicker x:Name="SDate" MaximumDate="12/31/2021"></DatePicker>
+                    </StackLayout>
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="Search" Clicked="searchSchedule"/>
+                        <Button Text="Add" Clicked="insert"/>
+                    </StackLayout>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal"
+                             Grid.Row="1"
+                             BackgroundColor="GhostWhite">
+                    <Button x:Name="sa" Clicked="plusAvail" Text="+Available" IsEnabled="False"/>
+                    <Button x:Name="da" Clicked="dropAvail" Text="-Available" IsEnabled="False"/>
+                    <Button x:Name="update" Clicked="toupdate" Text="Update" IsEnabled="False"/>
+                    <Button x:Name="delete" Clicked="todelete" Text="Delete" IsEnabled="False"/>
+                </StackLayout>
+                <ListView x:Name="FlightList" 
+                          HeightRequest="400" 
+                          RowHeight="130" 
+                          ItemsSource="{Binding FlightList}" 
+                          Grid.Row="2" 
+                          ItemTapped="tap" 
+                          BackgroundColor="White">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Vertical" HeightRequest="1500">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding source}" FontSize="25" HorizontalOptions="StartAndExpand"></Label>
+                                        <Label Text="TO" FontSize="30" TextColor="skyblue" HorizontalOptions="CenterAndExpand"></Label>
+                                        <Label Text="{Binding destination}" FontSize="25" HorizontalOptions="EndAndExpand"></Label>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <DatePicker Date="{Binding date}" FontSize="15"></DatePicker>
+                                        <TimePicker Time="{Binding sourceTime}" FontSize="15"></TimePicker>
+                                        <Label Text="—>"/>
+                                        <TimePicker BindingContext="{Binding flightTableViewModel}" Time="{Binding destinationTime}" FontSize="15"></TimePicker>
+                                        <Label Text="+"  FontSize="13"></Label>
+                                        <Entry Text="{Binding days}" FontSize="13"></Entry>
+                                        <Label Text="day" FontSize="13"></Label>
+                                        <Label Text="$" HorizontalOptions="EndAndExpand" TextColor="Green" FontSize="20"/>
+                                        <Entry Text="{Binding price}" WidthRequest="60" TextColor="Green" FontSize="20"></Entry>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Picker SelectedItem="{Binding company}" WidthRequest="30" FontSize="10">
+                                            <Picker.ItemsSource>
+                                                <x:Array Type="{x:Type x:String}">
+                                                    <x:String>United</x:String>
+                                                    <x:String>American</x:String>
+                                                    <x:String>Delta</x:String>
+                                                </x:Array>
+                                            </Picker.ItemsSource>
+                                        </Picker>
+                                        <Label Text="AVAILABLE!" FontSize="10" TextColor="Green" IsVisible="{Binding isAvailable}"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

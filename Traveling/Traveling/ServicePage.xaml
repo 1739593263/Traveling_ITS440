@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.ServicePage" >
+    
+    <ContentPage.Content>
+        <StackLayout>
+            <Label Text="Service feedback:"
+               FontSize="15"
+               FontAttributes="Bold"
+               HorizontalOptions="Start" />
+            <Label Text="you can enter your feedback here."
+               FontSize="15"
+               FontAttributes="Bold"
+               HorizontalOptions="Start" />
+            <Editor VerticalOptions="FillAndExpand"
+                   
+                Margin="10" />
+            <Button Text="Submit"
+                Font="Large"
+                BackgroundColor="GreenYellow"
+                BorderWidth="1"
+                HorizontalOptions="Center"
+                VerticalOptions="CenterAndExpand"
+                Clicked="OnButtonsubmitClicked"/>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

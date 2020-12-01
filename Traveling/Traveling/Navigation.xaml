@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Traveling;assembly=Traveling"
+             x:Class="Traveling.Navigation">
+  <!--Pages can be added as references or inline-->
+    
+    <NavigationPage Title="Main" IconImageSource="main.png">
+        <x:Arguments>
+            <local:MainJobPage />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Schedule" IconImageSource="schedule.png">
+        <x:Arguments>
+            <local:SchedulePage />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Service" IconImageSource="service.png">
+        <x:Arguments>
+            <local:ServicePage />
+        </x:Arguments>
+    </NavigationPage>
+    <NavigationPage Title="Personal" IconImageSource="personal.png">
+        <x:Arguments>
+            <local:PersonalPage />
+        </x:Arguments>
+    </NavigationPage>
+
+</TabbedPage>
