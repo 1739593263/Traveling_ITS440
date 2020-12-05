@@ -4,14 +4,7 @@
              xmlns:local="clr-namespace:Traveling;assembly=Traveling"
              x:Class="Traveling.Navigation">
   <!--Pages can be added as references or inline-->
-    <TabbedPage.ToolbarItems>
-        <ToolbarItem Text="Login" 
-                     Clicked="toLogin" 
-                     Order="Secondary"></ToolbarItem>
-        <ToolbarItem Text="reserve" 
-                     Clicked="toReserve" 
-                     Order="Secondary"></ToolbarItem>
-    </TabbedPage.ToolbarItems>
+    
     <NavigationPage Title="Main" IconImageSource="main.png">
         <x:Arguments>
             <local:MainJobPage />

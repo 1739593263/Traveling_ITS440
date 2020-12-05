@@ -19,7 +19,7 @@
                         <Picker x:Name="DPlace" WidthRequest="100" ItemsSource="{Binding PlacesList}" HorizontalOptions="EndAndExpand"></Picker>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <DatePicker x:Name="SDate" MaximumDate="12/31/2021"></DatePicker>
+                        <DatePicker x:Name="SDate" MaximumDate="12/31/2021" Format="mm/dd/yyyy"></DatePicker>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
                         <Button Text="Search" Clicked="searchSchedule"/>
@@ -52,10 +52,10 @@
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal">
-                                        <DatePicker Date="{Binding date}" FontSize="15"></DatePicker>
-                                        <TimePicker Time="{Binding sourceTime}" FontSize="15"></TimePicker>
+                                        <Label Text="{Binding date}" FontSize="15"></Label>
+                                        <TimePicker Format="HH:mmtt" Time="{Binding sourceTime}"  FontSize="15"></TimePicker>
                                         <Label Text="—>"/>
-                                        <TimePicker BindingContext="{Binding flightTableViewModel}" Time="{Binding destinationTime}" FontSize="15"></TimePicker>
+                                        <TimePicker Format="HH:mmtt" Time="{Binding destinationTime}" FontSize="15"></TimePicker>
                                         <Label Text="+"  FontSize="13"></Label>
                                         <Entry Text="{Binding days}" FontSize="13"></Entry>
                                         <Label Text="day" FontSize="13"></Label>
@@ -73,6 +73,7 @@
                                                 </x:Array>
                                             </Picker.ItemsSource>
                                         </Picker>
+                                        <Entry Text="{Binding airplane}" Placeholder="airplaneNUM" FontSize="15" TextColor="BlueViolet"></Entry>
                                         <Label Text="AVAILABLE!" FontSize="10" TextColor="Green" IsVisible="{Binding isAvailable}"></Label>
                                     </StackLayout>
                                 </StackLayout>

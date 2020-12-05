@@ -77,9 +77,11 @@ namespace Traveling
             else {
                 await DisplayAlert("ERROR", "error account", "OK");
             }
-            
-
         }
 
+        async void to_Register(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new register());
+        }
     }
 }

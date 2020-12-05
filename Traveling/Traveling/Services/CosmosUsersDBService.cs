@@ -117,5 +117,14 @@ namespace Traveling.Services
             var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, user.Id);
             await docClient.ReplaceDocumentAsync(docUri, user);
         }
+
+        public async static Task InsertUser(Users user)
+        {
+            if (!await Initialize()) return;
+
+            await docClient.CreateDocumentAsync(
+                UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                user);
+        }
     }
 }

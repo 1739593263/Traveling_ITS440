@@ -22,7 +22,7 @@
                     </StackLayout>
                     <Button Text="Search" Clicked="searchSchedule"></Button>
                 </StackLayout>
-                
+
                 <ListView x:Name="FlightList" 
                           HeightRequest="400" 
                           RowHeight="100" 
@@ -53,7 +53,7 @@
 
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding company}" FontSize="10"></Label>
-                                        <Label Text="{Binding airplane}" FontSize="10"></Label>
+                                        <Label Text="{Binding airplane}" FontSize="15" TextColor="BlueViolet"></Label>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>

@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.register"
+             BackgroundImageSource="final440.png"
+             Opacity="0.8">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical" 
+                     HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="CenterAndExpand" 
+                     BackgroundColor="WhiteSmoke" 
+                     Opacity="0.9"
+                     Padding="15">
+            <StackLayout Orientation="Horizontal">
+                <Label>FirstName*</Label>
+                <Entry WidthRequest="250" x:Name="firstn"></Entry>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label>LastName*</Label>
+                <Entry WidthRequest="250" x:Name="lastn"></Entry>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label>Gender</Label>
+                <RadioButton Text="female" GroupName="genderGroup" x:Name="female"/>
+                <RadioButton Text="male" GroupName="genderGroup" x:Name="male"/>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label>Username*</Label>
+                <Entry WidthRequest="250" x:Name="user"></Entry>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label>Password*</Label>
+                <Entry WidthRequest="250" x:Name="pwd" IsPassword="True"></Entry>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label>Birthday</Label>
+                <DatePicker WidthRequest="250" x:Name="birth"></DatePicker>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label>Profession</Label>
+                <Picker WidthRequest="250" x:Name="pro" SelectedItem="customer">
+                    <Picker.ItemsSource>
+                        <x:Array Type="{x:Type x:String}">
+                            <x:String>customer</x:String>
+                            <x:String>service</x:String>
+                            <x:String>admin</x:String>
+                        </x:Array>
+                    </Picker.ItemsSource>
+                </Picker>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label>Mail</Label>
+                <Entry WidthRequest="250" x:Name="mail"></Entry>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Label>Location</Label>
+                <Entry WidthRequest="250" x:Name="location"></Entry>
+            </StackLayout>
+            <Button Text="submit" Clicked="sign_up" BackgroundColor="SkyBlue"></Button>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

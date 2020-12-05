@@ -118,7 +118,7 @@ namespace Traveling.Models
         }
 
         string _airplane;
-        [JsonProperty("_airplane")]
+        [JsonProperty("airplane")]
         public string airplane
         {
             get => _airplane;

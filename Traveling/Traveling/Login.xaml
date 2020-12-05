@@ -1,20 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Traveling.Login">
+             x:Class="Traveling.Login" 
+             BackgroundImageSource="final440.png" Opacity="0.8">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" 
+                     HorizontalOptions="CenterAndExpand"
+                     VerticalOptions="CenterAndExpand" 
+                     BackgroundColor="WhiteSmoke" 
+                     Opacity="0.9"
+                     Padding="15">
             <StackLayout Orientation="Horizontal">
                 <Label>Username</Label>
-                <Entry WidthRequest="50" x:Name="user"></Entry>
+                <Entry WidthRequest="250" x:Name="user"></Entry>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal">
                 <Label>Password</Label>
-                <Entry WidthRequest="50" x:Name="pwd"></Entry>
+                <Entry WidthRequest="250" x:Name="pwd" IsPassword="True"></Entry>
             </StackLayout>
 
-            <Button Text="login" Clicked="log_in"></Button>
+            <StackLayout Orientation="Horizontal" 
+                         HorizontalOptions="EndAndExpand">
+                <Button Text="login" Clicked="log_in" BackgroundColor="SkyBlue"></Button>
+                <Button Text="sign up" Clicked="to_Register"></Button>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
