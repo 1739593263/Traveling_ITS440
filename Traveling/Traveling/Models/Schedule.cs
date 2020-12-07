@@ -76,7 +76,8 @@ namespace Traveling.Models
         {
             get => _destinationTime;
 
-            set {
+            set
+            {
                 if (_destinationTime == value) return;
 
                 _destinationTime = value;
@@ -84,6 +85,22 @@ namespace Traveling.Models
                 HandlePropertyChanged();
             }
         }
+
+        /*string _destinationTime;
+        [JsonProperty("destination_time")]
+        public DateTime destinationTime
+        {
+            get => DateTime.ParseExact(_destinationTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+
+            set
+            {
+                if (DateTime.ParseExact(_destinationTime, "HH:mm", System.Globalization.CultureInfo.InvariantCulture) == value) return;
+
+                _destinationTime = value.ToString();
+
+                HandlePropertyChanged();
+            }
+        }*/
 
         double _price;
         [JsonProperty("price")]

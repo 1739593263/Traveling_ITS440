@@ -43,7 +43,6 @@ namespace Traveling
             string[] dates = s.Split(' ');
             string sou = (string)SPlace.SelectedItem;
             string des = (string)DPlace.SelectedItem;
-
             flightLists = await CosmosScheduleDBService.SearchSchedule(sou, des, dates[0]);
         }
 
@@ -52,7 +51,6 @@ namespace Traveling
             string[] dates = s.Split(' ');
             string sou = (string)SPlace.SelectedItem;
             string des = (string)DPlace.SelectedItem;
-            Console.WriteLine(dates[0]+" "+ sou+" "+des);
             if (sou == des)
             {
                 await DisplayAlert("Error", "the same source and destination", "retry");

@@ -22,6 +22,8 @@ namespace Traveling.adminPage
         Schedule flightline;
         Schedule add_flightline;
 
+        string st;
+        string et;
         public FlightTable()
         {
             InitializeComponent();
@@ -42,6 +44,10 @@ namespace Traveling.adminPage
 
             tap_num = e.ItemIndex;
             flightline = flightTableViewModel.FlightList[tap_num];
+            st = flightline.sourceTime;
+            et = flightline.destinationTime;
+
+            Console.WriteLine("asd "+ flightline.destinationTime+" ");
         }
 
         async Task ExecuteSearchCommand()
@@ -117,10 +123,13 @@ namespace Traveling.adminPage
             string[] dates = s.Split(' ');
             string sou = (string)SPlace.SelectedItem;
             string des = (string)DPlace.SelectedItem;
+
             add_flightline = new Schedule();
             add_flightline.source = sou;
             add_flightline.destination = des;
             add_flightline.date = dates[0];
+            add_flightline.sourceTime = "00:00";
+            add_flightline.destinationTime = "00:00";
             if (sou == des)
             {
                 await DisplayAlert("Error", "the same source and destination", "retry");
@@ -141,9 +150,9 @@ namespace Traveling.adminPage
         {
             avail = 1;
             flightline.isAvailable = 1;
-            if(flightline.price <= 0 && 
-                flightline.sourceTime == flightline.destinationTime && 
-                flightline.company == null)
+            if(flightline.price <= 0 &&
+                flightline.company == null && 
+                flightline.sourceTime == flightline.destinationTime)
             {
                 await DisplayAlert("ERROR", "please complete Info of tapped item", "OK");
             }else{
@@ -160,7 +169,30 @@ namespace Traveling.adminPage
 
         async void toupdate(object sender, EventArgs e) 
         {
-            await ExecuteUpdate();
+            int i = 0;
+            string[] ss = st.Split(':');
+            string[] ee = et.Split(':');
+            if (ss.Length != 2 && ee.Length != 2)
+            {
+                await DisplayAlert("ERROR", "invalid time format", "OK");
+                return;
+            }
+            else 
+            {
+                bool s1 = int.TryParse(ss[0], out i);
+                bool s2 = int.TryParse(ss[1], out i);
+                bool e1 = int.TryParse(ee[0], out i);
+                bool e2 = int.TryParse(ee[1], out i);
+                if(s1 && s2 && e1 && e2)
+                {
+                    await ExecuteUpdate();
+                }
+                else
+                {
+                    await DisplayAlert("ERROR", "invalid time format", "OK");
+                    return;
+                }
+            }
         }
 
         async void todelete(object sender, EventArgs e) 

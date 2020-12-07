@@ -54,7 +54,6 @@ namespace Traveling.Services
 
             while (itemQuery.HasMoreResults) {
                 var queryResult = await itemQuery.ExecuteNextAsync<Schedule>();
-
                 scheduleList.AddRange(queryResult);
             }
             return scheduleList;
@@ -109,6 +108,8 @@ namespace Traveling.Services
 
             if (!await Initialize()) return scheduleList;
 
+            Console.WriteLine("LOOL: "+ sourceplace+" "+ desplace+" "+ sdate);
+
             var itemQuery = docClient.CreateDocumentQuery<Schedule>(
                     UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
                     new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
@@ -120,7 +121,6 @@ namespace Traveling.Services
             while (itemQuery.HasMoreResults)
             {
                 var queryResult = await itemQuery.ExecuteNextAsync<Schedule>();
-
                 scheduleList.AddRange(queryResult);
             }
             return scheduleList;
