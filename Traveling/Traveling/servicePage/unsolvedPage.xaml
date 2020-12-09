@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Traveling.servicePage.unsolvedPage">
     <ContentPage.Content>
-        <StackLayout Padding="20">
+        <StackLayout>
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
@@ -18,12 +18,10 @@
                         <Button Text="Search" Clicked="searchAdvise"></Button>
                     </StackLayout>
                 </StackLayout>
-                
-                <StackLayout Grid.Row="1" >
-                    <Button x:Name="respond" Clicked="response" Text="Respond" IsEnabled="False"/>
+
+                <StackLayout Grid.Row="1">
+                    <Button x:Name="re" Clicked="response" Text="Respond" IsEnabled="false"/>
                 </StackLayout>
-                
-                
                 <ListView x:Name="unsolvedList" 
                           HeightRequest="600" 
                           RowHeight="130" 

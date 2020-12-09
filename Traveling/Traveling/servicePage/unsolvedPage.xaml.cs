@@ -17,13 +17,14 @@ namespace Traveling.servicePage
     {
         GetunSolvedAdviseViewModel getunSolvedAdviseViewModel;
         Advise advise;
-        int tap_num;
+        int tap_num = -1;
 
         string cname;
         List<Advise> adviseList;
         public unsolvedPage()
         {
             InitializeComponent();
+            re.IsEnabled = false;
 
             getunSolvedAdviseViewModel = new GetunSolvedAdviseViewModel();
             unsolvedList.BindingContext = getunSolvedAdviseViewModel;
@@ -32,14 +33,14 @@ namespace Traveling.servicePage
         async void tap(object sender, ItemTappedEventArgs e)
         {
             tap_num = e.ItemIndex;
-            respond.IsEnabled = true;
+            re.IsEnabled = true;
             advise = getunSolvedAdviseViewModel.AdviselList[tap_num];
         }
 
         protected override void OnAppearing()
         {
             base.OnAppearing();
-            respond.IsEnabled = true;
+            re.IsEnabled = true;
             getunSolvedAdviseViewModel.RefreshCommand.Execute(null);
         }
 
@@ -70,11 +71,10 @@ namespace Traveling.servicePage
             /*Console.WriteLine("result: "+result);*/
             var sid = CrossSecureStorage.Current.GetValue("id");
             var sname = CrossSecureStorage.Current.GetValue("firstname") + " " + CrossSecureStorage.Current.GetValue("lastname");
-            var s = (MenuItem)sender;
-            
 
 
-            if (result != "")
+
+            if (tap_num >=0 && result != "")
             {
                 advise.isReply = 1;
                 advise.needReply = 0;
@@ -86,7 +86,7 @@ namespace Traveling.servicePage
             }
             else
             {
-                await DisplayAlert("Hey!", "please enter the response!", "OK");
+                await DisplayAlert("Hey!", "operation failure", "OK");
             } 
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.SecureStorage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,9 +18,11 @@ namespace Traveling
         CosmosHotelService hotelService;
         Hotel hotel;
         List<rooms> newList;
+        HotelTrans hotelt;
 
         string ID;
         int tapped_num = -1;
+        double value = 0;
 
         public class rooms
         {
@@ -55,7 +58,7 @@ namespace Traveling
 
         void OnStepperValueChanged(object sender, ValueChangedEventArgs e)
         {
-            double value = e.NewValue;
+            value = e.NewValue;
             if (tapped_num >= 0)
             {
                 double price = newList[tapped_num].price;
@@ -63,8 +66,35 @@ namespace Traveling
             }
         }
 
+        async Task ExecuteGetTransCommand()
+        {
+            string uid = CrossSecureStorage.Current.GetValue("id");
+            hotelt = await CosmosHotelTransService.SearchHotelByLastUid(uid);
+        }
+
+        async Task ExecuteUpdateTrans()
+        {
+            await CosmosHotelTransService.UpdateHotelTrans(hotelt);
+            await DisplayAlert("SUCCESS", "operation success", "OK");
+        }
+
         async void bookIt(object sender, EventArgs e) {
-            await DisplayAlert("",ID +" "+ newList[tapped_num].type+" "+ sum.Text, "OK");
+            await ExecuteGetTransCommand();
+
+            string s = date.Date.ToString();
+            string[] dates = s.Split(' ');
+            hotelt.date = dates[0];
+            hotelt.days = (int)stepper.Value;
+            hotelt.roomType = newList[tapped_num].type;
+            hotelt.price = value * newList[tapped_num].price;
+            if (hotelt.price > 0)
+            {
+                hotelt.isPaid = 1;
+                await ExecuteUpdateTrans();
+            }
+            else {
+                await DisplayAlert("ERROR", "Please complete the information", "OK");
+            }
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.SecureStorage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,6 +22,7 @@ namespace Traveling
         List<Hotel> hotellist;
         Hotel hotel;
 
+        HotelTrans hotelTrans;
         public HotelPage()
         {
             InitializeComponent();
@@ -60,9 +62,25 @@ namespace Traveling
             var hotell = ((MenuItem)sender);
             string ID = hotell.CommandParameter + "";
             await ExecuteSearchCommand(ID);
+
+            hotelTrans = new HotelTrans();
+            hotelTrans.Name = hotel.Name;
+            hotelTrans.District = hotel.District;
+            hotelTrans.description = hotel.description;
+            hotelTrans.picture = hotel.picture;
+            hotelTrans.city = hotel.city;
+            hotelTrans.userId = CrossSecureStorage.Current.GetValue("id");
+            hotelTrans.userName = CrossSecureStorage.Current.GetValue("firstname")+" "+ CrossSecureStorage.Current.GetValue("lastname");
+            await ExecuteInsrtTransCommand();
+
+            CrossSecureStorage.Current.SetValue("hotelName", hotel.Name);
             await Navigation.PushAsync(new bookHotel(ID, hotel.price1, hotel.price2, hotel.price3));
         }
 
+        async Task ExecuteInsrtTransCommand()
+        {
+            await CosmosHotelTransService.InsertHotelTrans(hotelTrans);
+        }
 
         async Task ExecuteSearchCommand(string _id)
         {

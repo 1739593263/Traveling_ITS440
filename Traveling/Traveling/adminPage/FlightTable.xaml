@@ -36,7 +36,7 @@
                 </StackLayout>
                 <ListView x:Name="FlightList" 
                           HeightRequest="400" 
-                          RowHeight="130" 
+                          RowHeight="140" 
                           ItemsSource="{Binding FlightList}" 
                           Grid.Row="2" 
                           ItemTapped="tap" 

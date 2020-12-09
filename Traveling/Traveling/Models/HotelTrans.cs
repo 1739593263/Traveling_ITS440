@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Traveling.Models
 {
-    class Hotel : INotifyPropertyChanged
+    class HotelTrans : INotifyPropertyChanged
     {
         string _id;
         [JsonProperty("id")]
@@ -26,7 +26,8 @@ namespace Traveling.Models
 
         string _name;
         [JsonProperty("Name")]
-        public string Name {
+        public string Name
+        {
             get => _name;
             set
             {
@@ -40,7 +41,8 @@ namespace Traveling.Models
 
         string _district;
         [JsonProperty("District")]
-        public string District {
+        public string District
+        {
             get => _district;
             set
             {
@@ -52,31 +54,31 @@ namespace Traveling.Models
             }
         }
 
-        int _isClean;
-        [JsonProperty("is_clean")]
-        public int isClean
+        string _date;
+        [JsonProperty("date")]
+        public string date
         {
-            get => _isClean;
+            get => _date;
             set
             {
-                if (_isClean == value) return;
+                if (_date == value) return;
 
-                _isClean = value;
+                _date = value;
 
                 HandlePropertyChanged();
             }
         }
 
-        string _vacantDate;
-        [JsonProperty("vacant_date")]
-        public string vacantDate
+        int _days;
+        [JsonProperty("days")]
+        public int days
         {
-            get => _vacantDate;
+            get => _days;
             set
             {
-                if (_vacantDate == value) return;
+                if (_days == value) return;
 
-                _vacantDate = value;
+                _days = value;
 
                 HandlePropertyChanged();
             }
@@ -84,9 +86,10 @@ namespace Traveling.Models
 
         string _description;
         [JsonProperty("description")]
-        public string description {
+        public string description
+        {
             get => _description;
-            set 
+            set
             {
                 if (_description == value) return;
 
@@ -101,7 +104,7 @@ namespace Traveling.Models
         public string picture
         {
             get => _picture;
-            set 
+            set
             {
                 if (_picture == value) return;
 
@@ -111,91 +114,76 @@ namespace Traveling.Models
             }
         }
 
-        int _doubleroom;
-        [JsonProperty("Double_room")]
-        public int doubleroom
+        string _roomType;
+        [JsonProperty("room_type")]
+        public string roomType
         {
-            get => _doubleroom;
+            get => _roomType;
             set
             {
-                if (_doubleroom == value) return;
+                if (_roomType == value) return;
 
-                _doubleroom = value;
+                _roomType = value;
 
                 HandlePropertyChanged();
             }
         }
 
-        double _price1;
-        [JsonProperty("price1")]
-        public double price1
+        double _price;
+        [JsonProperty("price")]
+        public double price
         {
-            get => _price1;
+            get => _price;
             set
             {
-                if (_price1 == value) return;
+                if (_price == value) return;
 
-                _price1 = value;
+                _price = value;
 
                 HandlePropertyChanged();
             }
         }
 
-        int _Quaroom;
-        [JsonProperty("Quadruple_room")]
-        public int Quaroom
+        string _userId;
+        [JsonProperty("user_id")]
+        public string userId
         {
-            get => _Quaroom;
+            get => _userId;
             set
             {
-                if (_Quaroom == value) return;
+                if (_userId == value) return;
 
-                _Quaroom = value;
+                _userId = value;
 
                 HandlePropertyChanged();
             }
         }
 
-        double _price2;
-        [JsonProperty("price2")]
-        public double price2
+        string _userName;
+        [JsonProperty("user_name")]
+        public string userName
         {
-            get => _price2;
+            get => _userName;
             set
             {
-                if (_price2 == value) return;
+                if (_userName == value) return;
 
-                _price2 = value;
+                _userName = value;
 
                 HandlePropertyChanged();
             }
         }
 
-        int _suit;
-        [JsonProperty("Suit")]
-        public int suit
+        int _isPaid;
+        [JsonProperty("is_paid")]
+        public int isPaid
         {
-            get => _suit;
+            get => _isPaid;
             set
             {
-                if (_suit == value) return;
+                if (_isPaid == value) return;
 
-                _suit = value;
-
-                HandlePropertyChanged();
-            }
-        }
-
-        double _price3;
-        [JsonProperty("price3")]
-        public double price3
-        {
-            get => _price3;
-            set
-            {
-                if (_price3 == value) return;
-
-                _price3 = value;
+                _isPaid = value;
 
                 HandlePropertyChanged();
             }
@@ -224,5 +212,6 @@ namespace Traveling.Models
 
             PropertyChanged?.Invoke(this, eventArgs);
         }
+    
     }
 }
