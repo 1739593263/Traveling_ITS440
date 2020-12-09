@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Traveling.HotelPage">
+             x:Class="Traveling.servicePage.solvedPage">
     <ContentPage.Content>
         <StackLayout Padding="20">
             <Grid>
@@ -13,35 +13,42 @@
                              Grid.Row="0" 
                              BackgroundColor="White">
                     <StackLayout Orientation="Horizontal">
-                        <Picker x:Name="city" ItemsSource="{Binding PlacesList}" WidthRequest="300"/>
-                        <Button Text="Search" Clicked="searchHotel"></Button>
+                        <Entry x:Name="problme" Placeholder="search by Name" WidthRequest="300"/>
+                        <Button Text="Search"></Button>
                     </StackLayout>
                 </StackLayout>
 
-                <ListView x:Name="hotelList" 
+                <ListView x:Name="solvedList" 
                           HeightRequest="600" 
                           RowHeight="150" 
-                          ItemsSource="{Binding HotelList}" 
+                          ItemsSource="{Binding AdviselList}" 
                           Grid.Row="1"  
                           BackgroundColor="WhiteSmoke">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
                                 <ViewCell.ContextActions>
-                                    <MenuItem Clicked="book" Text="BOOK" CommandParameter="{Binding Id}"></MenuItem>
+                                    <MenuItem Text="check"></MenuItem>
                                 </ViewCell.ContextActions>
                                 <StackLayout Orientation="Horizontal">
-                                    <Image Source="{Binding picture}"></Image>
-                                    <StackLayout Orientation="Vertical">
-                                        <Label Text="EXCEPTIONAL CLEAN" IsVisible="{Binding isClean}" TextColor="Gold" Padding="2" FontSize="10" BackgroundColor="WhiteSmoke"/>
-                                        <Label Text="{Binding Name}" FontSize="15" FontFamily="bold"></Label>
-                                        <Label Text="{Binding District}" TextColor="Silver"></Label>
-                                        <Label Text="{Binding description}"></Label>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="$" TextColor="Green" HorizontalOptions="EndAndExpand"/>
-                                            <Label Text="{Binding price1}" TextColor="Green"></Label>
-                                            <Label Text="/day" TextColor="Green"/>
+                                            <Label Text="{Binding caseName}" FontSize="20"/>
+                                            <Label Text="from" FontSize="8" TextColor="Silver"></Label>
+                                            <Label Text="{Binding userName}"></Label>
                                         </StackLayout>
+
+                                        <Label Text="{Binding userTalk}"></Label>
+                                    </StackLayout>
+                                    <Label Text="|" HorizontalOptions="Center" VerticalOptions="Center" TextColor="DimGray"/>
+                                    <StackLayout Orientation="Vertical" HorizontalOptions="EndAndExpand">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding caseName}" FontSize="20"/>
+                                            <Label Text="Response from" FontSize="8" TextColor="Silver"></Label>
+                                            <Label Text="{Binding serviceName}"></Label>
+                                        </StackLayout>
+
+                                        <Label Text="{Binding serviceTalk}"></Label>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>

@@ -13,9 +13,8 @@
                FontSize="15"
                FontAttributes="Bold"
                HorizontalOptions="Start" />
-            <Editor VerticalOptions="FillAndExpand"
-                   
-                Margin="10" />
+            <Entry x:Name="title" Placeholder="Enter the title" FontSize="25" WidthRequest="100"></Entry>
+            <Editor x:Name="content" VerticalOptions="FillAndExpand" Margin="10" />
             <Button Text="Submit"
                 Font="Large"
                 BackgroundColor="GreenYellow"

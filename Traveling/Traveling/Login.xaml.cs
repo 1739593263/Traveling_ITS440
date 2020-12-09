@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Traveling.adminPage;
 using Traveling.Models;
+using Traveling.servicePage;
 using Traveling.Services;
 using Traveling.ViewModels;
 using Xamarin.Forms;
@@ -46,6 +47,7 @@ namespace Traveling
             {
                 if (userlist[0].username == username && userlist[0].password == password)
                 {
+                    CrossSecureStorage.Current.SetValue("id", userlist[0].Id);
                     CrossSecureStorage.Current.SetValue("username", username);
                     CrossSecureStorage.Current.SetValue("pasword", password);
                     CrossSecureStorage.Current.SetValue("firstname", userlist[0].Firstname);
@@ -62,7 +64,7 @@ namespace Traveling
                     }
                     else if (userlist[0].profession == "service")
                     {
-
+                        await Navigation.PushAsync(new smenu());
                     }
                     else 
                     {

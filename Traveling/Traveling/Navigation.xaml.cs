@@ -51,6 +51,14 @@ namespace Traveling
             };
             item1.Clicked += toReserve;
             this.ToolbarItems.Add(item1);
+
+            ToolbarItem item3 = new ToolbarItem
+            {
+                Text = "hotel",
+                Order = ToolbarItemOrder.Secondary,
+            };
+            item3.Clicked += toHotel;
+            this.ToolbarItems.Add(item3);
         }
 
         async void toLogin(object sender, EventArgs e)
@@ -60,6 +68,7 @@ namespace Traveling
 
         async void toOut(object sender, EventArgs e)
         {
+            CrossSecureStorage.Current.DeleteKey("id");
             CrossSecureStorage.Current.DeleteKey("username");
             CrossSecureStorage.Current.DeleteKey("pasword");
             CrossSecureStorage.Current.DeleteKey("firstname");
@@ -73,5 +82,9 @@ namespace Traveling
             await Navigation.PushAsync(new BuyFlightPage());
         }
 
+        async void toHotel(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new HotelPage());
+        }
     }
 }

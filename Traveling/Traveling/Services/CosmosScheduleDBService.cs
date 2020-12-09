@@ -108,8 +108,6 @@ namespace Traveling.Services
 
             if (!await Initialize()) return scheduleList;
 
-            Console.WriteLine("LOOL: "+ sourceplace+" "+ desplace+" "+ sdate);
-
             var itemQuery = docClient.CreateDocumentQuery<Schedule>(
                     UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
                     new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })

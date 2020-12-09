@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.servicePage.smenu" BackgroundColor="WhiteSmoke">
+    <ContentPage.Content>
+        <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Vertical" 
+                         Spacing="10" 
+                         VerticalOptions="StartAndExpand" 
+                         BackgroundColor="White" Padding="10">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="S_Click"/>
+                </StackLayout.GestureRecognizers>
+                <Image Source="solved.png" WidthRequest="100"></Image>
+                <Label Text="Solved problem" FontSize="20" HorizontalOptions="Center"></Label>
+            </StackLayout>
+            <StackLayout Orientation="Vertical" 
+                         Spacing="10" 
+                         VerticalOptions="StartAndExpand" 
+                         BackgroundColor="White" Padding="10">
+                <StackLayout.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="US_Click"/>
+                </StackLayout.GestureRecognizers>
+                <Image Source="unsolved.png" WidthRequest="100"></Image>
+                <Label Text="Unsolved problem" HorizontalOptions="Center" FontSize="20"></Label>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

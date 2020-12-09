@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.bookHotel">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ListView x:Name="hotelitem" 
+                          HeightRequest="300" 
+                          RowHeight="80"
+                          ItemTapped="tap"  
+                          Grid.Row="0"  
+                          BackgroundColor="WhiteSmoke">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Image Source="{Binding picture}"></Image>
+                                    <StackLayout Orientation="Vertical">
+                                        <Label Text="{Binding type}" FontSize="15"></Label>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="$" TextColor="Green" HorizontalOptions="EndAndExpand"/>
+                                            <Label Text="{Binding price}" TextColor="Green" FontSize="15"></Label>
+                                            <Label Text=" per day" TextColor="Silver" FontSize="8"></Label>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackLayout Grid.Row="1" 
+                             HorizontalOptions="CenterAndExpand" 
+                             Orientation="Horizontal">
+                    <Label Text="You will pay: $"></Label>
+                    <Label x:Name="sum" ></Label>
+                    <Stepper Minimum="0" Maximum="10" x:Name="stepper" Increment="1" ValueChanged="OnStepperValueChanged" HorizontalOptions="Center"></Stepper>
+                </StackLayout>
+                <Button Text="book it!" BackgroundColor="DodgerBlue" Clicked="bookIt" Grid.Row="2"></Button>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
