@@ -37,10 +37,10 @@
     <EmbeddedResource Update="adminPage\menu.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="adminPage\UserTable.xaml">
+    <EmbeddedResource Update="adminPage\TrainTable.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="AiportPage.xaml">
+    <EmbeddedResource Update="adminPage\UserTable.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
     <EmbeddedResource Update="AirportPage.xaml">

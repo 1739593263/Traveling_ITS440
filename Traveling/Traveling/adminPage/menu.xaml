@@ -33,6 +33,9 @@
                     </StackLayout>
 
                     <StackLayout Orientation="Vertical" Grid.Column="2" Padding="15">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TT_Click"/>
+                        </StackLayout.GestureRecognizers>
                         <Image Source="train.png" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"/>
                         <Label Text="Train Table" VerticalOptions="EndAndExpand"></Label>
                     </StackLayout>

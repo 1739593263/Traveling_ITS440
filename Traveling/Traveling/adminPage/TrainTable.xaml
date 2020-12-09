@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Traveling.TrainPage" 
-             BackgroundColor="WhiteSmoke">
+             x:Class="Traveling.adminPage.TrainTable">
     <ContentPage.Content>
-        <StackLayout Padding="20">
+        <StackLayout>
             <Grid>
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
@@ -19,17 +19,28 @@
                         <Picker x:Name="DPlace" WidthRequest="100" ItemsSource="{Binding PlacesList}" HorizontalOptions="EndAndExpand"></Picker>
                     </StackLayout>
                     <StackLayout Orientation="Horizontal">
-                        <DatePicker x:Name="SDate"  Format="MM/dd/yyyy" MaximumDate="12/31/2021"></DatePicker>
+                        <DatePicker x:Name="SDate" Format="MM/dd/yyyy" MaximumDate="12/31/2021"></DatePicker>
                     </StackLayout>
-                    <Button Text="Search" Clicked="searchSchedule"></Button>
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="Search" Clicked="searchSchedule"/>
+                        <Button Text="Add" Clicked="insert"/>
+                    </StackLayout>
                 </StackLayout>
-
+                <StackLayout Orientation="Horizontal"
+                             Grid.Row="1"
+                             BackgroundColor="GhostWhite">
+                    <Button x:Name="sa" Clicked="plusAvail" Text="+Available" IsEnabled="False"/>
+                    <Button x:Name="da" Clicked="dropAvail" Text="-Available" IsEnabled="False"/>
+                    <Button x:Name="update" Clicked="toupdate" Text="Update" IsEnabled="False"/>
+                    <Button x:Name="delete" Clicked="todelete" Text="Delete" IsEnabled="False"/>
+                </StackLayout>
                 <ListView x:Name="TrainList" 
                           HeightRequest="400" 
-                          RowHeight="100" 
+                          RowHeight="150" 
                           ItemsSource="{Binding TrainList}" 
-                          Grid.Row="1"  
-                          BackgroundColor="WhiteSmoke">
+                          Grid.Row="2" 
+                          ItemTapped="tap" 
+                          BackgroundColor="White">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
@@ -42,18 +53,21 @@
 
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding date}" FontSize="15"></Label>
-                                        <Label Text="{Binding sourceTime}" FontSize="15"></Label>
-                                        <Label Text="——>"/>
-                                        <Label Text="{Binding destinationTime}" FontSize="15"></Label>
-                                        <Label Text="+" IsVisible="{Binding days}"  FontSize="13"></Label>
-                                        <Label Text="{Binding days}" IsVisible="{Binding days}" FontSize="13"></Label>
-                                        <Label Text="day" IsVisible="{Binding days}" FontSize="13"></Label>
+
+                                        <Editor Text="{Binding sourceTime}" Placeholder="HH:MM" WidthRequest="50" FontSize="15" MaxLength="5"></Editor>
+                                        <Label Text="—>"/>
+                                        <Editor Text="{Binding destinationTime}" Placeholder="HH:MM" WidthRequest="50" FontSize="15" MaxLength="5"></Editor>
+
+                                        <Label Text="+"  FontSize="13"></Label>
+                                        <Entry Text="{Binding days}" FontSize="13"></Entry>
+                                        <Label Text="day" FontSize="13"></Label>
                                         <Label Text="$" HorizontalOptions="EndAndExpand" TextColor="Green" FontSize="20"/>
-                                        <Label Text="{Binding price}" TextColor="Green" FontSize="20"></Label>
+                                        <Entry Text="{Binding price}" WidthRequest="60" TextColor="Green" FontSize="20"></Entry>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding line}" FontSize="15" TextColor="DeepSkyBlue"></Label>
+                                        <Entry Text="{Binding line}" Placeholder="train line" FontSize="15" TextColor="CadetBlue"></Entry>
+                                        <Label Text="AVAILABLE!" FontSize="10" TextColor="Green" IsVisible="{Binding isAvailable}"></Label>
                                     </StackLayout>
                                 </StackLayout>
                             </ViewCell>
@@ -61,7 +75,6 @@
                     </ListView.ItemTemplate>
                 </ListView>
             </Grid>
-
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

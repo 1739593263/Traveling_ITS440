@@ -59,10 +59,20 @@ namespace Traveling
             };
             item3.Clicked += toHotel;
             this.ToolbarItems.Add(item3);
+
+            ToolbarItem item4 = new ToolbarItem
+            {
+                Text = "Train",
+                Order = ToolbarItemOrder.Secondary,
+            };
+            item4.Clicked += toTrain;
+            this.ToolbarItems.Add(item4);
+
         }
 
         async void toLogin(object sender, EventArgs e)
         {
+            await Navigation.PopToRootAsync();
             await Navigation.PushAsync(new Login());
         }
 
@@ -85,6 +95,11 @@ namespace Traveling
         async void toHotel(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new HotelPage());
+        }
+
+        async void toTrain(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new TrainPage());
         }
     }
 }

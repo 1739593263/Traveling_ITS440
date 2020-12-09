@@ -20,8 +20,7 @@
                 </StackLayout>
                 
                 <StackLayout Grid.Row="1" >
-                    <Button x:Name="respond" 
-                        Clicked="response" Text="Respond" IsEnabled="False"/>
+                    <Button x:Name="respond" Clicked="response" Text="Respond" IsEnabled="False"/>
                 </StackLayout>
                 
                 

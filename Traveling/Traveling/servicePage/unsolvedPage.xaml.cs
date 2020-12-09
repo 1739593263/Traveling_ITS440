@@ -70,6 +70,9 @@ namespace Traveling.servicePage
             /*Console.WriteLine("result: "+result);*/
             var sid = CrossSecureStorage.Current.GetValue("id");
             var sname = CrossSecureStorage.Current.GetValue("firstname") + " " + CrossSecureStorage.Current.GetValue("lastname");
+            var s = (MenuItem)sender;
+            
+
 
             if (result != "")
             {

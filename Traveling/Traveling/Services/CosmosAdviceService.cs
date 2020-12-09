@@ -186,7 +186,6 @@ namespace Traveling.Services
         public async static Task UpdateAdvise(Advise advise)
         {
             if (!await Initialize()) return;
-
             var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, advise.Id);
             await docClient.ReplaceDocumentAsync(docUri, advise);
         }

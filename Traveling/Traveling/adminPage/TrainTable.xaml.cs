@@ -12,23 +12,25 @@ using Xamarin.Forms.Xaml;
 namespace Traveling.adminPage
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class FlightTable : ContentPage
+    public partial class TrainTable : ContentPage
     {
-        FlightTableViewModel flightTableViewModel;
+        TrainTableViewModel trainViewModel;
         PlacesViewModel placesViewModel;
-        List<Schedule> flightLists;
+
+        List<Train> trainLists;
         int avail = 0;
         int tap_num;
-        Schedule flightline;
-        Schedule add_flightline;
+        Train trainline;
+        Train add_trainline;
 
         string st;
         string et;
-        public FlightTable()
+        public TrainTable()
         {
             InitializeComponent();
-            flightTableViewModel = new FlightTableViewModel();
-            FlightList.BindingContext = flightTableViewModel;
+
+            trainViewModel = new TrainTableViewModel();
+            TrainList.BindingContext = trainViewModel;
 
             placesViewModel = new PlacesViewModel();
             SPlace.BindingContext = placesViewModel;
@@ -43,11 +45,11 @@ namespace Traveling.adminPage
             delete.IsEnabled = true;
 
             tap_num = e.ItemIndex;
-            flightline = flightTableViewModel.FlightList[tap_num];
-            st = flightline.sourceTime;
-            et = flightline.destinationTime;
+            trainline = trainViewModel.TrainList[tap_num];
+            st = trainline.sourceTime;
+            et = trainline.destinationTime;
 
-            Console.WriteLine("asd "+ flightline.destinationTime+" ");
+            Console.WriteLine("asd " + trainline.destinationTime + " ");
         }
 
         async Task ExecuteSearchCommand()
@@ -57,22 +59,22 @@ namespace Traveling.adminPage
             string sou = (string)SPlace.SelectedItem;
             string des = (string)DPlace.SelectedItem;
 
-            flightLists = await CosmosScheduleDBService.SearchAllSchedule(sou, des, dates[0]);
+            trainLists = await CosmosTrainTableService.SearchAllTrain(sou, des, dates[0]);
         }
 
         async Task ExecuteInsert()
         {
-            await CosmosScheduleDBService.InsertSchedule(add_flightline);
+            await CosmosTrainTableService.InsertTrain(add_trainline);
         }
 
         async Task ExecuteAvailable()
         {
-            await CosmosScheduleDBService.UpdateSchedule(flightline);
-            if (flightline.isAvailable == 0)
+            await CosmosTrainTableService.UpdateTrain(trainline);
+            if (trainline.isAvailable == 0)
             {
                 await DisplayAlert("SUCCESS", "this line no longer available", "OK");
             }
-            else if(flightline.isAvailable == 1)
+            else if (trainline.isAvailable == 1)
             {
                 await DisplayAlert("SUCCESS", "this line is available", "OK");
             }
@@ -84,13 +86,13 @@ namespace Traveling.adminPage
 
         async Task ExecuteUpdate()
         {
-            await CosmosScheduleDBService.UpdateSchedule(flightline);
+            await CosmosTrainTableService.UpdateTrain(trainline);
             await DisplayAlert("SUCCESS", "operation success", "OK");
         }
 
         async Task ExecuteDelete()
         {
-            await CosmosScheduleDBService.DeleteSchdule(flightline);
+            await CosmosTrainTableService.DeleteTrain(trainline);
             await DisplayAlert("SUCCESS", "operation success", "OK");
         }
 
@@ -105,15 +107,15 @@ namespace Traveling.adminPage
             {
                 await DisplayAlert("Error", "the same source and destination", "retry");
             }
-            else if (sou == null || des == null) 
+            else if (sou == null || des == null)
             {
                 await DisplayAlert("Error", "please input source and destination", "retry");
             }
             else
             {
                 await ExecuteSearchCommand();
-                FlightList.BindingContext = "";
-                FlightList.ItemsSource = flightLists;
+                TrainList.BindingContext = "";
+                TrainList.ItemsSource = trainLists;
             }
         }
 
@@ -124,12 +126,12 @@ namespace Traveling.adminPage
             string sou = (string)SPlace.SelectedItem;
             string des = (string)DPlace.SelectedItem;
 
-            add_flightline = new Schedule();
-            add_flightline.source = sou;
-            add_flightline.destination = des;
-            add_flightline.date = dates[0];
-            add_flightline.sourceTime = "00:00";
-            add_flightline.destinationTime = "00:00";
+            add_trainline = new Train();
+            add_trainline.source = sou;
+            add_trainline.destination = des;
+            add_trainline.date = dates[0];
+            add_trainline.sourceTime = "00:00";
+            add_trainline.destinationTime = "00:00";
             if (sou == des)
             {
                 await DisplayAlert("Error", "the same source and destination", "retry");
@@ -141,35 +143,36 @@ namespace Traveling.adminPage
             else
             {
                 await ExecuteInsert();
-                await DisplayAlert("SUCCESS", "flight line is added", "OK");
+                await DisplayAlert("SUCCESS", "train line is added", "OK");
+
                 await Navigation.PushAsync(new loading());
                 await Navigation.PopAsync();
             }
         }
-        async void plusAvail(object sender, EventArgs e) 
+        async void plusAvail(object sender, EventArgs e)
         {
             avail = 1;
-            if(flightline.price <= 0 &&
-                flightline.company == null && 
-                flightline.sourceTime == flightline.destinationTime)
+            if (trainline.price <= 0 &&
+                trainline.company == null &&
+                trainline.sourceTime == trainline.destinationTime)
             {
                 await DisplayAlert("ERROR", "please complete Info of tapped item", "OK");
             }
             else
             {
-                flightline.isAvailable = 1;
-                await ExecuteAvailable(); 
+                trainline.isAvailable = 1;
+                await ExecuteAvailable();
             }
         }
 
         async void dropAvail(object sender, EventArgs e)
         {
             avail = 0;
-            flightline.isAvailable = 0;
+            trainline.isAvailable = 0;
             await ExecuteAvailable();
         }
 
-        async void toupdate(object sender, EventArgs e) 
+        async void toupdate(object sender, EventArgs e)
         {
             int i = 0;
             string[] ss = st.Split(':');
@@ -179,13 +182,13 @@ namespace Traveling.adminPage
                 await DisplayAlert("ERROR", "invalid time format", "OK");
                 return;
             }
-            else 
+            else
             {
                 bool s1 = int.TryParse(ss[0], out i);
                 bool s2 = int.TryParse(ss[1], out i);
                 bool e1 = int.TryParse(ee[0], out i);
                 bool e2 = int.TryParse(ee[1], out i);
-                if(s1 && s2 && e1 && e2)
+                if (s1 && s2 && e1 && e2)
                 {
                     await ExecuteUpdate();
                 }
@@ -197,7 +200,7 @@ namespace Traveling.adminPage
             }
         }
 
-        async void todelete(object sender, EventArgs e) 
+        async void todelete(object sender, EventArgs e)
         {
             await ExecuteDelete();
             await Navigation.PushAsync(new loading());
@@ -208,7 +211,7 @@ namespace Traveling.adminPage
         {
             base.OnAppearing();
 
-            flightTableViewModel.RefreshCommand.Execute(null);
+            trainViewModel.RefreshCommand.Execute(null);
             placesViewModel.RefreshCommand.Execute(null);
         }
     }

@@ -20,7 +20,7 @@ namespace Traveling
 
         async void OnButtonairplaneClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AirportPage());
+
         }
     }
 }

@@ -19,7 +19,7 @@ namespace Traveling
 
         async void OnButtonAirportClicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new AirportPage());
+            await Navigation.PushAsync(new BuyFlightPage());
         }
 
         async void OnButtonTrainClicked(object sender, EventArgs e)

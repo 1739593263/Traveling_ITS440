@@ -24,5 +24,9 @@ namespace Traveling.adminPage
         async void FT_Click(object sender, EventArgs e) {
             await Navigation.PushAsync(new FlightTable());
         }
+
+        async void TT_Click(object sender, EventArgs e) {
+            await Navigation.PushAsync(new TrainTable());
+        }
     }
 }
