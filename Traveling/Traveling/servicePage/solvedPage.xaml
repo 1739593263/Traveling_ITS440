@@ -14,7 +14,7 @@
                              BackgroundColor="White">
                     <StackLayout Orientation="Horizontal">
                         <Entry x:Name="problme" Placeholder="search by Name" WidthRequest="300"/>
-                        <Button Text="Search"></Button>
+                        <Button Text="Search" Clicked="searchAdvise"></Button>
                     </StackLayout>
                 </StackLayout>
 
@@ -27,9 +27,6 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <ViewCell.ContextActions>
-                                    <MenuItem Text="check"></MenuItem>
-                                </ViewCell.ContextActions>
                                 <StackLayout Orientation="Horizontal">
                                     <StackLayout Orientation="Vertical" HorizontalOptions="StartAndExpand">
                                         <StackLayout Orientation="Horizontal">

@@ -2,33 +2,72 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:Traveling"
-             x:Class="Traveling.PersonalPage" >
+             x:Class="Traveling.PersonalPage" BackgroundColor="White">
     
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="0" Orientation="Horizontal" HorizontalOptions="Start">
+                    <Image Source="greyhead.png" WidthRequest="70" x:Name="grey" >
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="figure"/>
+                        </Image.GestureRecognizers>
+                    </Image>
 
-            <Label Text="Unpaid Order:"
-               TextColor="Pink"
-               FontSize="20"
-               FontAttributes="Bold"
-               HorizontalOptions="Center" />
+                    <Image Source="loginhead.png" WidthRequest="70" x:Name="head">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Tapped ="figure"/>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <StackLayout Orientation="Vertical" x:Name="intro">
+                        <Label x:Name="name" TextColor="SkyBlue" VerticalOptions="StartAndExpand" FontSize="20" Padding="10"/>
+                        <Label x:Name="mail" FontSize="15" Padding="10"/>
+                        <Label x:Name="id"  FontSize="15" Padding="10"/>
+                    </StackLayout>
+                </StackLayout>
 
-            <ListView Margin="10, 0">
+                <StackLayout Grid.Row="1" 
+                             Orientation="Horizontal"
+                             BackgroundColor="WhiteSmoke" 
+                             Padding="20">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <Image WidthRequest="30" Source="unpaid.png"></Image>
+                        <Label Text="Not Paid" TextColor="Gray"></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <Image WidthRequest="30" Source="paid.png"></Image>
+                        <Label Text="Paid" TextColor="Gray"></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <Image WidthRequest="30" Source="allorder.png"></Image>
+                        <Label Text="All Order" TextColor="Gray"></Label>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Grid.Row="2" 
+                             Orientation="Horizontal" 
+                             BackgroundColor="WhiteSmoke" 
+                             Padding="20">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="toAd"/>
+                        </StackLayout.GestureRecognizers>
+                        <Image WidthRequest="30" Source="serviceInfo.png"/>
+                        <Label Text="Service Info" TextColor="Gray"></Label>
+                    </StackLayout>
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <Image WidthRequest="30" Source="hotelinfo.png"></Image>
+                        <Label Text="Hotel Info" TextColor="Gray"></Label>
+                    </StackLayout>
+                    
+                </StackLayout>
                 
-            </ListView>
-
-
-            <Label Text="Paid Order:"
-               TextColor="Pink"
-               FontSize="20"
-               FontAttributes="Bold"
-               HorizontalOptions="Center" />
-
-            <ListView Margin="10, 0">
-                
-            </ListView>
-            
-            
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

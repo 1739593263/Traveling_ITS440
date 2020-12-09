@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.userMessage">
+    <ContentPage.Content>
+        <StackLayout>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                
+                <ListView x:Name="advises" 
+                          HeightRequest="500"  ItemsSource="{Binding AdviselList}"
+                          RowHeight="200" 
+                          Grid.Row="0" 
+                          BackgroundColor="White">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="solve" Text="Solve" CommandParameter="{Binding Id}"></MenuItem>
+                                </ViewCell.ContextActions>
+                                <StackLayout Orientation="Vertical" HeightRequest="1500">
+                                    <Label Text="{Binding caseName}" TextColor="CadetBlue" FontSize="22"/>
+                                    <StackLayout Orientation="Vertical">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Source="user_message" WidthRequest="15"></Image>
+                                            <Label Text="{Binding userName}" TextColor="lightBlue" FontSize="15"/>
+                                        </StackLayout>
+                                        <Label Text="{Binding userTalk}" Padding="3" FontSize="13"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" IsVisible="{Binding isReply}">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Image Source="service_message" WidthRequest="15"></Image>
+                                            <Label Text="{Binding serviceName}" TextColor="Yellow" FontSize="15"/>
+                                        </StackLayout>
+                                        <Label Text="{Binding serviceTalk}" Padding="3" FontSize="13"/>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" IsVisible="{Binding needReply}">
+                                        <Label Text="Waiting for respond..." FontSize="10"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

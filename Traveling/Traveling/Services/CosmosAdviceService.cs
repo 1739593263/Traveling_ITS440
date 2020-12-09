@@ -152,6 +152,28 @@ namespace Traveling.Services
             return adviseList;
         }
 
+        public async static Task<List<Advise>> SearchAdvisesById(string id)
+        {
+            var adviseList = new List<Advise>();
+
+            if (!await Initialize()) return adviseList;
+
+            var itemQuery = docClient.CreateDocumentQuery<Advise>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(advise => advise.userId == id)
+                .Where(advise => advise.serviceTalk!=null)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Advise>();
+
+                adviseList.AddRange(queryResult);
+            }
+            return adviseList;
+        }
+
         public async static Task InsertAdvise(Advise advise)
         {
             if (!await Initialize()) return;
@@ -165,6 +187,31 @@ namespace Traveling.Services
         {
             if (!await Initialize()) return;
 
+            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, advise.Id);
+            await docClient.ReplaceDocumentAsync(docUri, advise);
+        }
+
+        public async static Task UpdateAdvise(string aid)
+        {
+            if (!await Initialize()) return;
+
+            var adviseList = new List<Advise>();
+            Advise advise = new Advise();
+
+            var itemQuery = docClient.CreateDocumentQuery<Advise>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(advise => advise.Id == aid)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Advise>();
+                adviseList.AddRange(queryResult);
+                advise = adviseList[0];
+                advise.isSolved = 1;
+            }
+           
             var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, advise.Id);
             await docClient.ReplaceDocumentAsync(docUri, advise);
         }

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Traveling.Models;
+using Traveling.Services;
 using Traveling.ViewModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
@@ -14,6 +16,8 @@ namespace Traveling.servicePage
     {
         GetSolvedAdviseViewModel solvedAdviseViewModel;
 
+        string cname;
+        List<Advise> adviseList;
         public solvedPage()
         {
             InitializeComponent();
@@ -26,6 +30,23 @@ namespace Traveling.servicePage
             base.OnAppearing();
 
             solvedAdviseViewModel.RefreshCommand.Execute(null);
+        }
+
+        async Task ExecuteSearch()
+        {
+            adviseList = await CosmosAdviceService.SearchSolvedAdvises(cname);
+        }
+
+        async void searchAdvise(object sender, EventArgs e)
+        {
+            cname = problme.Text;
+
+            if (cname != null)
+            {
+                await ExecuteSearch();
+                solvedList.BindingContext = "";
+                solvedList.ItemsSource = adviseList;
+            }
         }
     }
 }
