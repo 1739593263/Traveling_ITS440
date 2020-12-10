@@ -153,5 +153,28 @@ namespace Traveling.Services
             var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, train.Id);
             await docClient.DeleteDocumentAsync(docUri, new RequestOptions() { PartitionKey = new PartitionKey(Undefined.Value) });
         }
+
+        public async static Task<Train> GetTrainById(string id)
+        {
+            Train train = new Train();
+            var trainList = new List<Train>();
+
+            if (!await Initialize()) return train;
+
+            var itemQuery = docClient.CreateDocumentQuery<Train>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(train => train.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Train>();
+                trainList.AddRange(queryResult);
+            }
+            train = trainList[0];
+
+            return train;
+        }
     }
 }

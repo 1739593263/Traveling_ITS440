@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.SecureStorage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +18,8 @@ namespace Traveling
         FlightScheduleViewModel flightViewModel;
         PlacesViewModel placesViewModel;
         List<Schedule> flightLists;
+
+        Schedule flight;
 
         public BuyFlightPage()
         {
@@ -66,5 +69,21 @@ namespace Traveling
             }
         }
 
+
+
+        async void book(object sender, EventArgs e)
+        {
+            var Flightl = ((MenuItem)sender);
+            string ID = Flightl.CommandParameter + "";
+            await ExecuteSearchCommand(ID);
+
+            /*CrossSecureStorage.Current.SetValue("hotelName", hotel.Name);*/
+            await Navigation.PushAsync(new bookSchedule(ID, flight.price, flight.price2, flight.price3));
+        }
+
+        async Task ExecuteSearchCommand(string _id)
+        {
+            flight = await CosmosScheduleDBService.GetFlightById(_id);
+        }
     }
 }

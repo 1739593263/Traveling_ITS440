@@ -148,5 +148,28 @@ namespace Traveling.Services
             var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, schedule.Id);
             await docClient.DeleteDocumentAsync(docUri, new RequestOptions() { PartitionKey = new PartitionKey(Undefined.Value) });
         }
+
+        public async static Task<Schedule> GetFlightById(string id)
+        {
+            Schedule schedule = new Schedule();
+            var scheduleList = new List<Schedule>();
+
+            if (!await Initialize()) return schedule;
+
+            var itemQuery = docClient.CreateDocumentQuery<Schedule>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(sch => sch.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Schedule>();
+                scheduleList.AddRange(queryResult);
+            }
+            schedule = scheduleList[0];
+
+            return schedule;
+        }
     }
 }

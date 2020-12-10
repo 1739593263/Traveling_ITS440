@@ -118,6 +118,86 @@ namespace Traveling.Models
             }
         }
 
+        int _economy;
+        [JsonProperty("Economy")]
+        public int economy
+        {
+            get => _economy;
+
+            set
+            {
+                if (_economy == value) return;
+
+                _economy = value;
+
+                HandlePropertyChanged();
+            }
+        }
+
+        double _price2;
+        [JsonProperty("price2")]
+        public double price2
+        {
+            get => _price2;
+
+            set
+            {
+                if (_price2 == value) return;
+
+                _price2 = value;
+
+                HandlePropertyChanged();
+            }
+        }
+
+        int _business;
+        [JsonProperty("Business")]
+        public int business
+        {
+            get => _business;
+
+            set
+            {
+                if (_business == value) return;
+
+                _business = value;
+
+                HandlePropertyChanged();
+            }
+        }
+
+        double _price3;
+        [JsonProperty("price3")]
+        public double price3
+        {
+            get => _price3;
+
+            set
+            {
+                if (_price3 == value) return;
+
+                _price3 = value;
+
+                HandlePropertyChanged();
+            }
+        }
+
+        int _first;
+        [JsonProperty("First")]
+        public int first
+        {
+            get => _first;
+
+            set
+            {
+                if (_first == value) return;
+
+                _first = value;
+
+                HandlePropertyChanged();
+            }
+        }
+
         string _company;
         [JsonProperty("company")]
         public string company

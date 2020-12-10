@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.bookSchedule">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <ListView x:Name="scheduleitem" 
+                          HeightRequest="150" 
+                          RowHeight="50"
+                          ItemTapped="tap"  
+                          Grid.Row="0"  
+                          BackgroundColor="WhiteSmoke">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Horizontal">
+                                    <Label Text="{Binding type}" FontSize="15"></Label>
+                                    <Label Text="$" TextColor="Green" HorizontalOptions="EndAndExpand"/>
+                                    <Label Text="{Binding price}" TextColor="Green" FontSize="15"/>
+                                    <Label Text=" /seat" TextColor="Silver" FontSize="8"></Label>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <StackLayout Grid.Row="1" 
+                             HorizontalOptions="CenterAndExpand" 
+                             Orientation="Vertical">
+                    
+                    <Stepper Minimum="0" Maximum="10" x:Name="stepper" Increment="1" ValueChanged="OnStepperValueChanged" HorizontalOptions="Center"></Stepper>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="You will pay: $"></Label>
+                        <Label x:Name="sum" ></Label>
+                    </StackLayout>
+                </StackLayout>
+                <Button Text="book it!" BackgroundColor="DodgerBlue" Clicked="bookIt" Grid.Row="2"></Button>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

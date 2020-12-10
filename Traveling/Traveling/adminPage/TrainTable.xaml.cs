@@ -132,6 +132,9 @@ namespace Traveling.adminPage
             add_trainline.date = dates[0];
             add_trainline.sourceTime = "00:00";
             add_trainline.destinationTime = "00:00";
+            add_trainline.economy = 20;
+            add_trainline.business = 10;
+            add_trainline.first = 5;
             if (sou == des)
             {
                 await DisplayAlert("Error", "the same source and destination", "retry");
@@ -174,6 +177,9 @@ namespace Traveling.adminPage
 
         async void toupdate(object sender, EventArgs e)
         {
+            trainline.price2 = trainline.price + 50;
+            trainline.price3 = trainline.price + 100;
+
             int i = 0;
             string[] ss = st.Split(':');
             string[] ee = et.Split(':');

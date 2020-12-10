@@ -130,6 +130,9 @@ namespace Traveling.adminPage
             add_flightline.date = dates[0];
             add_flightline.sourceTime = "00:00";
             add_flightline.destinationTime = "00:00";
+            add_flightline.economy = 20;
+            add_flightline.business = 10;
+            add_flightline.first = 5;
             if (sou == des)
             {
                 await DisplayAlert("Error", "the same source and destination", "retry");
@@ -171,6 +174,9 @@ namespace Traveling.adminPage
 
         async void toupdate(object sender, EventArgs e) 
         {
+            flightline.price2 = flightline.price + 50;
+            flightline.price3 = flightline.price + 100;
+
             int i = 0;
             string[] ss = st.Split(':');
             string[] ee = et.Split(':');

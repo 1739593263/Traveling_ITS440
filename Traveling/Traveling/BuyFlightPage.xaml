@@ -32,6 +32,10 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
+                                <ViewCell.ContextActions>
+                                    <MenuItem Clicked="book" Text="BOOK" CommandParameter="{Binding Id}"></MenuItem>
+                                </ViewCell.ContextActions>
+                                
                                 <StackLayout Orientation="Vertical" HeightRequest="1500">
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding source}" FontSize="25" HorizontalOptions="StartAndExpand"></Label>

@@ -18,6 +18,7 @@ namespace Traveling
         PlacesViewModel placesViewModel;
         List<Train> trainlist;
 
+        Train train;
         public TrainPage()
         {
             InitializeComponent();
@@ -66,6 +67,21 @@ namespace Traveling
                 TrainList.BindingContext = "";
                 TrainList.ItemsSource = trainlist;
             }
+        }
+
+        async void book(object sender, EventArgs e)
+        {
+            var Flightl = ((MenuItem)sender);
+            string ID = Flightl.CommandParameter + "";
+            await ExecuteSearchCommand(ID);
+
+            /*CrossSecureStorage.Current.SetValue("hotelName", hotel.Name);*/
+            await Navigation.PushAsync(new bookSchedule(ID, train.price, train.price2, train.price3));
+        }
+
+        async Task ExecuteSearchCommand(string _id)
+        {
+            train = await CosmosTrainTableService.GetTrainById(_id);
         }
     }
 }
