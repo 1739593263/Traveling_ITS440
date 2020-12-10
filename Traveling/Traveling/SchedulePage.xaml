@@ -5,48 +5,76 @@
              x:Class="Traveling.SchedulePage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="TIME"
-               TextColor="Red"
-               FontSize="30"
-               FontAttributes="Bold"
-               HorizontalOptions="Center" />
-
-            <ListView Margin="10, 0">
-
-            </ListView>
+            
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="50" />
-                    <RowDefinition Height="10" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Padding="5">
+                    <Label x:Name="title" Text="Fight " FontSize="20" FontAttributes="Bold"/>
+                    <Label Text="Schedule Management" FontSize="20" FontAttributes="Bold"></Label>
+                </StackLayout>
+                
+                <ListView x:Name="ScheduleList" 
+                          HeightRequest="350" 
+                          RowHeight="100" 
+                          ItemsSource="{Binding TransList}" 
+                          Grid.Row="1" 
+                          BackgroundColor="LightBlue">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Vertical" HeightRequest="1500">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding source}" FontSize="25" HorizontalOptions="StartAndExpand"></Label>
+                                        <Label Text="TO" FontSize="30" TextColor="skyblue" HorizontalOptions="CenterAndExpand"></Label>
+                                        <Label Text="{Binding destination}" FontSize="25" HorizontalOptions="EndAndExpand"></Label>
+                                    </StackLayout>
 
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding date}" FontSize="15"></Label>
+                                        <Label Text="{Binding sourceTime}" FontSize="15"></Label>
+                                        <Label Text="—"/>
+                                        <Label Text="{Binding vehicleSort}" TextColor="PaleVioletRed"/>
+                                        <Label Text="—>"/>
+                                        <Label Text="{Binding destinationTime}" FontSize="15"></Label>
+                                        <Label Text="+" IsVisible="{Binding days}"  FontSize="13"></Label>
+                                        <Label Text="{Binding days}" IsVisible="{Binding days}" FontSize="13"></Label>
+                                        <Label Text="day" IsVisible="{Binding days}" FontSize="13"></Label>
+                                        <Label Text="$" HorizontalOptions="EndAndExpand" TextColor="Green" FontSize="20"/>
+                                        <Label Text="{Binding price}" TextColor="Green" FontSize="20"></Label>
+                                    </StackLayout>
 
-                <ImageButton Source="airport.png"
-                    Grid.Column="0"
-                    HorizontalOptions="Center"
-                    VerticalOptions="CenterAndExpand"
-                    BackgroundColor="Transparent"
-                    Clicked="OnButtonairplaneClicked" />
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding vehicleNum}" FontSize="15" TextColor="DeepSkyBlue"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
 
-                <ImageButton Source="train0.png"
-                    Grid.Column="1"
-                    HorizontalOptions="Center"
-                    VerticalOptions="CenterAndExpand"
-                    BackgroundColor="Transparent"
-                    Clicked="OnButtonairplaneClicked" />
+                <StackLayout Grid.Row="2" Orientation="Horizontal">
+                    <ImageButton Source="airport.png"
+                                 WidthRequest="50"
+                             HorizontalOptions="CenterAndExpand"
+                             BackgroundColor="Transparent"
+                             Clicked="OnButtonairplaneClicked" />
 
-                <ImageButton Source="car.png"
-                    Grid.Column="2"
-                    HorizontalOptions="Center"
-                    VerticalOptions="CenterAndExpand"
-                    BackgroundColor="Transparent"
-                    Clicked="OnButtonairplaneClicked" />
+                    <ImageButton Source="train0.png"
+                                 WidthRequest="50"
+                             HorizontalOptions="CenterAndExpand"
+                             BackgroundColor="Transparent"
+                             Clicked="OnButtontrainClicked" />
 
+                    <ImageButton Source="car.png"
+                                 WidthRequest="50"
+                             HorizontalOptions="CenterAndExpand"
+                             BackgroundColor="Transparent"
+                             Clicked="OnButtoncarClicked" />
+                </StackLayout>
             </Grid>
         </StackLayout>
     </ContentPage.Content>

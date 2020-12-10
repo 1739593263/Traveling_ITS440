@@ -32,7 +32,7 @@ namespace Traveling
                 head.IsVisible = !grey.IsVisible;
                 intro.IsVisible = grey.IsVisible;
             }
-            string uname = CrossSecureStorage.Current.GetValue("lastname")+" "+CrossSecureStorage.Current.GetValue("lastname");
+            string uname = CrossSecureStorage.Current.GetValue("firstname")+" "+CrossSecureStorage.Current.GetValue("lastname");
             name.Text = uname;
             mail.Text = CrossSecureStorage.Current.GetValue("mail");
             id.Text = CrossSecureStorage.Current.GetValue("id");

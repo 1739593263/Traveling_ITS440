@@ -24,6 +24,7 @@ namespace Traveling
         int tapped_num = -1;
         double value = 0;
 
+        string type = "";
         public class rooms
         {
             public string picture { get; set; }
@@ -44,7 +45,8 @@ namespace Traveling
 
         async void tap(object sender, ItemTappedEventArgs e) 
         {
-            if(e.ItemIndex != tapped_num)
+            type = newList[e.ItemIndex].type;
+            if (e.ItemIndex != tapped_num)
             {
                 sum.Text = "";
                 tapped_num = e.ItemIndex;
@@ -72,7 +74,7 @@ namespace Traveling
             {
                 string tid = CrossSecureStorage.Current.GetValue("tid");
                 hotelt = await CosmosHotelTransService.searchHotelById(tid);
-
+                
                 CrossSecureStorage.Current.DeleteKey("tid");
             }
             else
@@ -80,6 +82,15 @@ namespace Traveling
                 string uid = CrossSecureStorage.Current.GetValue("id");
                 hotelt = await CosmosHotelTransService.SearchHotelByLastUid(uid);
             }
+        }
+
+        async Task ExecuteSearchById() {
+            hotel = await CosmosHotelService.GetHotelById(ID);
+        }
+
+        async Task ExecuteUpdateQuantity()
+        {
+            await CosmosHotelService.UpdateHotelInQuantity(ID,type,"-");
         }
 
         async Task ExecuteUpdateTrans()
@@ -97,10 +108,39 @@ namespace Traveling
             hotelt.days = (int)stepper.Value;
             hotelt.roomType = newList[tapped_num].type;
             hotelt.price = value * newList[tapped_num].price;
+
+            await ExecuteSearchById();
+            // check the vacant 
+            if (type == "Double")
+            {
+                if (hotel.doubleroom == 0)
+                {
+                    await DisplayAlert("ERROR", "NO ROOM", "OK");
+                    return;
+                }
+            }
+            else if (type == "Quadruple")
+            {
+                if (hotel.Quaroom == 0)
+                {
+                    await DisplayAlert("ERROR", "NO ROOM", "OK");
+                    return;
+                }
+            }
+            else
+            {
+                if (hotel.suit == 0)
+                {
+                    await DisplayAlert("ERROR", "NO ROOM", "OK");
+                    return;
+                }
+            }
+
             if (hotelt.price > 0)
             {
                 hotelt.isPaid = 1;
                 await ExecuteUpdateTrans();
+                await ExecuteUpdateQuantity();
             }
             else {
                 await DisplayAlert("ERROR", "Please complete the information", "OK");

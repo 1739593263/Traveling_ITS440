@@ -102,8 +102,66 @@ namespace Traveling.Services
             }
             hotel = hotelList[0];
 
-            Console.WriteLine("sss1 " + hotel.Name);
             return hotel;
+        }
+
+        public async static Task UpdateHotelInQuantity(string id, string type, string ope)
+        {
+
+            if (!await Initialize()) return;
+
+            Hotel hotel = new Hotel();
+            var hotelList = new List<Hotel>();
+
+            var itemQuery = docClient.CreateDocumentQuery<Hotel>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(hotel => hotel.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Hotel>();
+                hotelList.AddRange(queryResult);
+            }
+            hotel = hotelList[0];
+            if (type == "Double")
+            {
+                if (ope == "+")
+                {
+                    hotel.doubleroom++;
+                }
+                else
+                {
+                    hotel.doubleroom--;
+                }
+            }
+            else if (type == "Quadruple")
+            {
+                if (ope == "+")
+                {
+                    hotel.Quaroom++;
+                }
+                else
+                {
+                    hotel.Quaroom--;
+                }
+            }
+            else if (type == "Suite")
+            {
+                if (ope == "+")
+                {
+                    hotel.suit++;
+                }
+                else
+                {
+                    hotel.suit--;
+                }
+            }
+            else return;
+
+            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, hotel.Id);
+            await docClient.ReplaceDocumentAsync(docUri, hotel);
         }
     }
 }
