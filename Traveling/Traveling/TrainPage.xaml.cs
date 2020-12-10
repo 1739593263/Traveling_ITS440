@@ -92,7 +92,7 @@ namespace Traveling
             await ExecuteInsrtTransCommand();
 
             /*CrossSecureStorage.Current.SetValue("hotelName", hotel.Name);*/
-            await Navigation.PushAsync(new bookSchedule(ID, train.price, train.price2, train.price3));
+            await Navigation.PushAsync(new bookSchedule(ID, train.price, train.price2, train.price3, "Train"));
         }
 
         async Task ExecuteInsrtTransCommand()

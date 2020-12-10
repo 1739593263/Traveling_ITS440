@@ -82,6 +82,29 @@ namespace Traveling.Services
             return scheduleList;
         }
 
+        public async static Task<Schedule> SearchScheduleById(string id)
+        {
+            var scheduleList = new List<Schedule>();
+
+            Schedule schedule = new Schedule();
+            if (!await Initialize()) return schedule;
+
+            var itemQuery = docClient.CreateDocumentQuery<Schedule>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(flight => flight.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Schedule>();
+
+                scheduleList.AddRange(queryResult);
+                schedule = scheduleList[0];
+            }
+            return schedule;
+        }
+
         public async static Task<List<Schedule>> GetAllSchedule()
         {
             var scheduleList = new List<Schedule>();

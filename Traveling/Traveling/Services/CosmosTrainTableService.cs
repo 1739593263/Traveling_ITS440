@@ -87,6 +87,29 @@ namespace Traveling.Services
             return trainList;
         }
 
+        public async static Task<Train> SearchTrainById(string id)
+        {
+            var trainList = new List<Train>();
+
+            Train train = new Train();
+            if (!await Initialize()) return train;
+
+            var itemQuery = docClient.CreateDocumentQuery<Train>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(train => train.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Train>();
+
+                trainList.AddRange(queryResult);
+                train = trainList[0];
+            }
+            return train;
+        }
+
         public async static Task<List<Train>> GetAllTrain()
         {
             var trainList = new List<Train>();
