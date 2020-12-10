@@ -39,6 +39,21 @@ namespace Traveling.Models
             }
         }
 
+        string _hotelId;
+        [JsonProperty("hotel_id")]
+        public string hotelId
+        {
+            get => _hotelId;
+            set
+            {
+                if (_hotelId == value) return;
+
+                _hotelId = value;
+
+                HandlePropertyChanged();
+            }
+        }
+
         string _district;
         [JsonProperty("District")]
         public string District

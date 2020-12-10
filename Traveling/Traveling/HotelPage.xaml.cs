@@ -64,6 +64,7 @@ namespace Traveling
             await ExecuteSearchCommand(ID);
 
             hotelTrans = new HotelTrans();
+            hotelTrans.hotelId = ID;
             hotelTrans.Name = hotel.Name;
             hotelTrans.District = hotel.District;
             hotelTrans.description = hotel.description;

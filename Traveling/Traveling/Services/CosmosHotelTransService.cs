@@ -62,6 +62,48 @@ namespace Traveling.Services
             return hotelList;
         }
 
+        public async static Task<List<HotelTrans>> searchPHotel(string uid)
+        {
+            var hotelList = new List<HotelTrans>();
+
+            if (!await Initialize()) return hotelList;
+
+            var itemQuery = docClient.CreateDocumentQuery<HotelTrans>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(hotel => hotel.isPaid != 0)
+                .Where(hotel => hotel.userId == uid)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<HotelTrans>();
+                hotelList.AddRange(queryResult);
+            }
+            return hotelList;
+        }
+
+        public async static Task<List<HotelTrans>> searchUnpHotel(string uid)
+        {
+            var hotelList = new List<HotelTrans>();
+
+            if (!await Initialize()) return hotelList;
+
+            var itemQuery = docClient.CreateDocumentQuery<HotelTrans>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(hotel => hotel.isPaid == 0)
+                .Where(hotel => hotel.userId == uid)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<HotelTrans>();
+                hotelList.AddRange(queryResult);
+            }
+            return hotelList;
+        }
+
         public async static Task<HotelTrans> SearchHotelByLastUid(string uid)
         {
             var hotelList = new List<HotelTrans>();
@@ -82,6 +124,28 @@ namespace Traveling.Services
 
 
                 hotelTrans = hotelList[hotelList.Count - 1];
+            }
+            return hotelTrans;
+        }
+
+        public async static Task<HotelTrans> searchHotelById(string id)
+        {
+            var hotelList = new List<HotelTrans>();
+            HotelTrans hotelTrans = new HotelTrans();
+
+            if (!await Initialize()) return hotelTrans;
+
+            var itemQuery = docClient.CreateDocumentQuery<HotelTrans>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(hotel => hotel.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<HotelTrans>();
+                hotelList.AddRange(queryResult);
+                hotelTrans = hotelList[0];
             }
             return hotelTrans;
         }

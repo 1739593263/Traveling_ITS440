@@ -61,6 +61,9 @@
                         <Label Text="Service Info" TextColor="Gray"></Label>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="toHt"/>
+                        </StackLayout.GestureRecognizers>
                         <Image WidthRequest="30" Source="hotelinfo.png"></Image>
                         <Label Text="Hotel Info" TextColor="Gray"></Label>
                     </StackLayout>

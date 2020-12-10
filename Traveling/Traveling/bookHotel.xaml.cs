@@ -68,8 +68,18 @@ namespace Traveling
 
         async Task ExecuteGetTransCommand()
         {
-            string uid = CrossSecureStorage.Current.GetValue("id");
-            hotelt = await CosmosHotelTransService.SearchHotelByLastUid(uid);
+            if (CrossSecureStorage.Current.HasKey("tid"))
+            {
+                string tid = CrossSecureStorage.Current.GetValue("tid");
+                hotelt = await CosmosHotelTransService.searchHotelById(tid);
+
+                CrossSecureStorage.Current.DeleteKey("tid");
+            }
+            else
+            {
+                string uid = CrossSecureStorage.Current.GetValue("id");
+                hotelt = await CosmosHotelTransService.SearchHotelByLastUid(uid);
+            }
         }
 
         async Task ExecuteUpdateTrans()

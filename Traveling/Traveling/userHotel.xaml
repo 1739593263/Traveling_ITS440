@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.Services.userHotel">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackLayout Orientation="Horizontal" 
+                             Grid.Row="0" 
+                             BackgroundColor="White">
+                    <Button Text="Not Paid" Clicked="up" BackgroundColor="LightGray"></Button>
+                    <Button Text="Paid" Clicked="p" BackgroundColor="GreenYellow"/>
+                </StackLayout>
+
+                <ListView x:Name="HotelList" 
+                          HeightRequest="400" 
+                          RowHeight="100" 
+                          ItemsSource="{Binding HotellList}" 
+                          ItemTapped="tap"
+                          Grid.Row="1"  
+                          BackgroundColor="WhiteSmoke">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Vertical" HeightRequest="1500">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding Name}" 
+                                               FontSize="20"
+                                               TextColor="SkyBlue"/>
+                                        <Label Text="{Binding District}" FontSize="10"/>
+
+                                        <Label Text="{Binding city}" FontSize="15" TextColor="LightGray"></Label>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding isPaid}">
+                                        <Label Text="{Binding roomType}" FontSize="15"/>
+                                        <Label HorizontalOptions="EndAndExpand" Text="$" TextColor="Green"/>
+                                        <Label Text="{Binding price}"></Label>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Horizontal" IsVisible="{Binding isPaid}">
+                                        <Label Text="{Binding date}" FontSize="15"/>
+                                        <Label Text="{Binding days}"></Label>
+                                        <Label Text="days"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
