@@ -32,7 +32,7 @@ namespace Traveling.ViewModels
             {
                 string uid = "";
                 uid = CrossSecureStorage.Current.GetValue("id");
-                HotellList = await CosmosHotelTransService.searchUnpHotel(uid);
+                HotellList = await CosmosTransactionService.searchUnpHotel(uid);
             }
             finally
             {

@@ -12,7 +12,7 @@ using Traveling.Models;
 
 namespace Traveling.Services
 {
-    class CosmosHotelTransService
+    class CosmosTransactionService
     {
         static DocumentClient docClient = null;
 

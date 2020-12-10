@@ -62,7 +62,7 @@ namespace Traveling.Services
             return transactionList;
         }
 
-        public async static Task<List<Transaction>> GetUPTransaction()
+        public async static Task<List<Transaction>> GetUPTransaction(string uid)
         {
             var transactionList = new List<Transaction>();
 
@@ -72,6 +72,7 @@ namespace Traveling.Services
                     UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
                     new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
                 .Where(trans => trans.isPaid == 0)
+                .Where(trans => trans.userId == uid)
                 .AsDocumentQuery();
 
             while (itemQuery.HasMoreResults)
@@ -82,7 +83,7 @@ namespace Traveling.Services
             return transactionList;
         }
 
-        public async static Task<List<Transaction>> GetPTransaction()
+        public async static Task<List<Transaction>> GetPTransaction(string uid)
         {
             var transactionList = new List<Transaction>();
 
@@ -92,6 +93,7 @@ namespace Traveling.Services
                     UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
                     new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
                 .Where(trans => trans.isPaid != 0)
+                .Where(trans => trans.userId == uid)
                 .AsDocumentQuery();
 
             while (itemQuery.HasMoreResults)
@@ -102,7 +104,7 @@ namespace Traveling.Services
             return transactionList;
         }
 
-        public async static Task<List<Transaction>> GetTransactionBySort(string sort)
+        public async static Task<List<Transaction>> GetTransactionBySort(string sort, string uid)
         {
             var transactionList = new List<Transaction>();
 
@@ -112,6 +114,8 @@ namespace Traveling.Services
                     UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
                     new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
                 .Where(trans => trans.vehicleSort == sort)
+                .Where(trans => trans.isPaid != 0)
+                .Where(trans => trans.userId == uid)
                 .AsDocumentQuery();
 
             while (itemQuery.HasMoreResults)
@@ -122,6 +126,52 @@ namespace Traveling.Services
             return transactionList;
         }
 
+        public async static Task<Transaction> SearchTransByLastUid(string uid)
+        {
+            var transList = new List<Transaction>();
+            Transaction transaction = new Transaction();
+
+            if (!await Initialize()) return transaction;
+
+            var itemQuery = docClient.CreateDocumentQuery<Transaction>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(trans => trans.userId == uid)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Transaction>();
+                transList.AddRange(queryResult);
+
+
+                transaction = transList[transList.Count - 1];
+            }
+            return transaction;
+        }
+
+        public async static Task<Transaction> searchTransById(string id)
+        {
+            var transList = new List<Transaction>();
+            Transaction transaction = new Transaction();
+
+            if (!await Initialize()) return transaction;
+
+            var itemQuery = docClient.CreateDocumentQuery<Transaction>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(trans => trans.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Transaction>();
+                transList.AddRange(queryResult);
+                transaction = transList[0];
+            }
+            return transaction;
+        }
+
         public async static Task InsertTransaction(Transaction transaction)
         {
             if (!await Initialize()) return;
@@ -129,6 +179,14 @@ namespace Traveling.Services
             await docClient.CreateDocumentAsync(
                 UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
                 transaction);
+        }
+
+        public async static Task UpdateTransaction(Transaction transaction)
+        {
+            if (!await Initialize()) return;
+
+            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, transaction.Id);
+            await docClient.ReplaceDocumentAsync(docUri, transaction);
         }
     }
 }

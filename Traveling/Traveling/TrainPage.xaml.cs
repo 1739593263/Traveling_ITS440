@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.SecureStorage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +20,7 @@ namespace Traveling
         List<Train> trainlist;
 
         Train train;
+        Transaction transaction;
         public TrainPage()
         {
             InitializeComponent();
@@ -71,12 +73,31 @@ namespace Traveling
 
         async void book(object sender, EventArgs e)
         {
-            var Flightl = ((MenuItem)sender);
-            string ID = Flightl.CommandParameter + "";
+            var Trainl = ((MenuItem)sender);
+            string ID = Trainl.CommandParameter + "";
             await ExecuteSearchCommand(ID);
+
+            transaction = new Transaction();
+            transaction.source = train.source;
+            transaction.sourceTime = train.sourceTime;
+            transaction.destination = train.destination;
+            transaction.destinationTime = train.destinationTime;
+            transaction.company = train.company;
+            transaction.userId = CrossSecureStorage.Current.GetValue("id");
+            transaction.vehicleId = train.Id;
+            transaction.vehicleNum = train.line;
+            transaction.vehicleSort = "train";
+            transaction.date = train.date;
+            transaction.days = train.days;
+            await ExecuteInsrtTransCommand();
 
             /*CrossSecureStorage.Current.SetValue("hotelName", hotel.Name);*/
             await Navigation.PushAsync(new bookSchedule(ID, train.price, train.price2, train.price3));
+        }
+
+        async Task ExecuteInsrtTransCommand()
+        {
+            await CosmosTransService.InsertTransaction(transaction);
         }
 
         async Task ExecuteSearchCommand(string _id)

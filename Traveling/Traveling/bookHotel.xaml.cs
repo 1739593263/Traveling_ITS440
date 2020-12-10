@@ -73,14 +73,14 @@ namespace Traveling
             if (CrossSecureStorage.Current.HasKey("tid"))
             {
                 string tid = CrossSecureStorage.Current.GetValue("tid");
-                hotelt = await CosmosHotelTransService.searchHotelById(tid);
+                hotelt = await CosmosTransactionService.searchHotelById(tid);
                 
                 CrossSecureStorage.Current.DeleteKey("tid");
             }
             else
             {
                 string uid = CrossSecureStorage.Current.GetValue("id");
-                hotelt = await CosmosHotelTransService.SearchHotelByLastUid(uid);
+                hotelt = await CosmosTransactionService.SearchHotelByLastUid(uid);
             }
         }
 
@@ -95,7 +95,7 @@ namespace Traveling
 
         async Task ExecuteUpdateTrans()
         {
-            await CosmosHotelTransService.UpdateHotelTrans(hotelt);
+            await CosmosTransactionService.UpdateHotelTrans(hotelt);
             await DisplayAlert("SUCCESS", "operation success", "OK");
         }
 

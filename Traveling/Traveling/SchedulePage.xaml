@@ -43,8 +43,6 @@
                                         <Label Text="+" IsVisible="{Binding days}"  FontSize="13"></Label>
                                         <Label Text="{Binding days}" IsVisible="{Binding days}" FontSize="13"></Label>
                                         <Label Text="day" IsVisible="{Binding days}" FontSize="13"></Label>
-                                        <Label Text="$" HorizontalOptions="EndAndExpand" TextColor="Green" FontSize="20"/>
-                                        <Label Text="{Binding price}" TextColor="Green" FontSize="20"></Label>
                                     </StackLayout>
 
                                     <StackLayout Orientation="Horizontal">

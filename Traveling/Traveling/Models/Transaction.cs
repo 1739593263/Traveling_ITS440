@@ -119,6 +119,22 @@ namespace Traveling.Models
             }
         }
 
+        string _userId;
+        [JsonProperty("user_id")]
+        public string userId
+        {
+            get => _userId;
+
+            set
+            {
+                if (_userId == value) return;
+
+                _userId = value;
+
+                HandlePropertyChanged();
+            }
+        }
+
         string _vehicleId;
         [JsonProperty("vehicle_id")]
         public string vehicleId

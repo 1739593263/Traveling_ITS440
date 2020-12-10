@@ -20,6 +20,7 @@ namespace Traveling
         List<Schedule> flightLists;
 
         Schedule flight;
+        Transaction transaction;
 
         public BuyFlightPage()
         {
@@ -77,6 +78,20 @@ namespace Traveling
             string ID = Flightl.CommandParameter + "";
             await ExecuteSearchCommand(ID);
 
+            transaction = new Transaction();
+            transaction.source = flight.source;
+            transaction.sourceTime = flight.sourceTime;
+            transaction.destination = flight.destination;
+            transaction.destinationTime = flight.destinationTime;
+            transaction.company = flight.company;
+            transaction.userId = CrossSecureStorage.Current.GetValue("id");
+            transaction.vehicleId = flight.Id;
+            transaction.vehicleNum = flight.airplane;
+            transaction.vehicleSort = "flight";
+            transaction.date = flight.date;
+            transaction.days = flight.days;
+            await ExecuteInsrtTransCommand();
+
             /*CrossSecureStorage.Current.SetValue("hotelName", hotel.Name);*/
             await Navigation.PushAsync(new bookSchedule(ID, flight.price, flight.price2, flight.price3));
         }
@@ -84,6 +99,11 @@ namespace Traveling
         async Task ExecuteSearchCommand(string _id)
         {
             flight = await CosmosScheduleDBService.GetFlightById(_id);
+        }
+
+        async Task ExecuteInsrtTransCommand()
+        {
+            await CosmosTransService.InsertTransaction(transaction);
         }
     }
 }

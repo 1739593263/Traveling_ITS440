@@ -80,7 +80,7 @@ namespace Traveling
 
         async Task ExecuteInsrtTransCommand()
         {
-            await CosmosHotelTransService.InsertHotelTrans(hotelTrans);
+            await CosmosTransactionService.InsertHotelTrans(hotelTrans);
         }
 
         async Task ExecuteSearchCommand(string _id)

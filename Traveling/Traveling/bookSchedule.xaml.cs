@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Plugin.SecureStorage;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using Traveling.Models;
+using Traveling.Services;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -12,11 +14,12 @@ namespace Traveling
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class bookSchedule : ContentPage
     {
-
         List<grade> newList;
         int tapped_num = -1;
         double value = 0;
         string type = "";
+
+        Transaction transaction;
         public class grade
         {
             public string type { get; set; }
@@ -58,9 +61,41 @@ namespace Traveling
             }
         }
 
+        async Task ExecuteGetTransCommand()
+        {
+            if (CrossSecureStorage.Current.HasKey("transid"))
+            {
+                string tid = CrossSecureStorage.Current.GetValue("transid");
+                transaction = await CosmosTransService.searchTransById(tid);
+
+                CrossSecureStorage.Current.DeleteKey("transid");
+            }
+            else
+            {
+                string uid = CrossSecureStorage.Current.GetValue("id");
+                transaction = await CosmosTransService.SearchTransByLastUid(uid);
+            }
+        }
+
+        async Task ExecuteUpdateTrans()
+        {
+            await CosmosTransService.UpdateTransaction(transaction);
+        }
+
         async void bookIt(object snder, EventArgs e)
         {
-            await DisplayAlert("", "YES!", "OK");
+            await ExecuteGetTransCommand();
+            transaction.price = value * newList[tapped_num].price;
+            if (transaction.price > 0) {
+                transaction.isPaid = 1;
+                await ExecuteUpdateTrans();
+
+                await DisplayAlert("SUCCESS", "operation success", "OK");
+            }
+            else
+            {
+                await DisplayAlert("ERROR", "Please complete the information", "OK");
+            }
         }
     }
 }

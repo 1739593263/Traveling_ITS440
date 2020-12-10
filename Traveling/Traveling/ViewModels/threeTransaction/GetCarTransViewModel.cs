@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Plugin.SecureStorage;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -28,7 +29,7 @@ namespace Traveling.ViewModels.threeTransaction
             IsBusy = true;
             try
             {
-                TransList = await CosmosTransService.GetTransactionBySort("car");
+                TransList = await CosmosTransService.GetTransactionBySort("car", CrossSecureStorage.Current.GetValue("id"));
             }
             finally
             {
