@@ -208,5 +208,14 @@ namespace Traveling.Services
             var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, transaction.Id);
             await docClient.ReplaceDocumentAsync(docUri, transaction);
         }
+
+        public async static Task DeleteTransaction(Transaction transaction)
+        {
+            if (!await Initialize()) return;
+
+            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, transaction.Id);
+            await docClient.DeleteDocumentAsync(docUri, new RequestOptions() { PartitionKey = new PartitionKey(Undefined.Value) });
+
+        }
     }
 }

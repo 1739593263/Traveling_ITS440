@@ -27,28 +27,28 @@
                         <DataTemplate>
                             <ViewCell>
                                 <StackLayout Orientation="Vertical" HeightRequest="1500">
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding source}" FontSize="25" HorizontalOptions="StartAndExpand"></Label>
-                                        <Label Text="TO" FontSize="30" TextColor="skyblue" HorizontalOptions="CenterAndExpand"></Label>
-                                        <Label Text="{Binding destination}" FontSize="25" HorizontalOptions="EndAndExpand"></Label>
-                                    </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding source}" FontSize="25" HorizontalOptions="StartAndExpand"></Label>
+                                            <Label Text="TO" FontSize="30" TextColor="skyblue" HorizontalOptions="CenterAndExpand"></Label>
+                                            <Label Text="{Binding destination}" FontSize="25" HorizontalOptions="EndAndExpand"></Label>
+                                        </StackLayout>
 
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding date}" FontSize="15"></Label>
-                                        <Label Text="{Binding sourceTime}" FontSize="15"></Label>
-                                        <Label Text="—"/>
-                                        <Label Text="{Binding vehicleSort}" TextColor="PaleVioletRed"/>
-                                        <Label Text="—>"/>
-                                        <Label Text="{Binding destinationTime}" FontSize="15"></Label>
-                                        <Label Text="+" IsVisible="{Binding days}"  FontSize="13"></Label>
-                                        <Label Text="{Binding days}" IsVisible="{Binding days}" FontSize="13"></Label>
-                                        <Label Text="day" IsVisible="{Binding days}" FontSize="13"></Label>
-                                    </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding date}" FontSize="15"></Label>
+                                            <Label Text="{Binding sourceTime}" FontSize="15"></Label>
+                                            <Label Text="—"/>
+                                            <Label Text="{Binding vehicleSort}" TextColor="PaleVioletRed"/>
+                                            <Label Text="—>"/>
+                                            <Label Text="{Binding destinationTime}" FontSize="15"></Label>
+                                            <Label Text="+" IsVisible="{Binding days}"  FontSize="13"></Label>
+                                            <Label Text="{Binding days}" IsVisible="{Binding days}" FontSize="13"></Label>
+                                            <Label Text="day" IsVisible="{Binding days}" FontSize="13"></Label>
+                                        </StackLayout>
 
-                                    <StackLayout Orientation="Horizontal">
-                                        <Label Text="{Binding vehicleNum}" FontSize="15" TextColor="DeepSkyBlue"></Label>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding vehicleNum}" FontSize="15" TextColor="DeepSkyBlue"></Label>
+                                        </StackLayout>
                                     </StackLayout>
-                                </StackLayout>
                             </ViewCell>
                         </DataTemplate>
                     </ListView.ItemTemplate>

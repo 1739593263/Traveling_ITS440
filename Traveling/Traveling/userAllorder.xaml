@@ -25,7 +25,10 @@
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>
-                                <StackLayout Orientation="Vertical" HeightRequest="1500">
+                                <ViewCell.ContextActions>
+                                    <MenuItem Text="Drop Order" Clicked="drop" CommandParameter="{Binding Id}"></MenuItem>
+                                </ViewCell.ContextActions>
+                                    <StackLayout Orientation="Vertical" HeightRequest="1500">
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding source}" FontSize="25" HorizontalOptions="StartAndExpand"></Label>
                                         <Label Text="TO" FontSize="30" TextColor="skyblue" HorizontalOptions="CenterAndExpand"></Label>

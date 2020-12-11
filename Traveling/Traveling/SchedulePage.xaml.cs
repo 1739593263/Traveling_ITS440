@@ -56,6 +56,7 @@ namespace Traveling
             ScheduleList.BackgroundColor = Color.WhiteSmoke;
         }
 
+
         protected override void OnAppearing()
         {
             base.OnAppearing();
