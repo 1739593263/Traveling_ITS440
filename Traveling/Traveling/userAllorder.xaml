@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.userAllorder">
+    <ContentPage.Content>
+        <StackLayout Padding="20">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackLayout Orientation="Horizontal" 
+                             Grid.Row="0" 
+                             BackgroundColor="White">
+                    <Label Text="Your ALL Order" FontAttributes="Bold" FontSize="15"></Label>
+                </StackLayout>
+
+                <ListView x:Name="transList" 
+                          HeightRequest="400" 
+                          RowHeight="100" 
+                          ItemsSource="{Binding TransList}" 
+                          ItemTapped="tap"
+                          Grid.Row="1"  
+                          BackgroundColor="WhiteSmoke">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Orientation="Vertical" HeightRequest="1500">
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding source}" FontSize="25" HorizontalOptions="StartAndExpand"></Label>
+                                        <Label Text="TO" FontSize="30" TextColor="skyblue" HorizontalOptions="CenterAndExpand"></Label>
+                                        <Label Text="{Binding destination}" FontSize="25" HorizontalOptions="EndAndExpand"></Label>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding date}" FontSize="15"></Label>
+                                        <Label Text="{Binding sourceTime}" FontSize="15"></Label>
+                                        <Label Text="—"/>
+                                        <Label Text="{Binding vehicleSort}" TextColor="PaleVioletRed"/>
+                                        <Label Text="—>"/>
+                                        <Label Text="{Binding destinationTime}" FontSize="15"></Label>
+                                        <Label Text="+" IsVisible="{Binding days}"  FontSize="13"></Label>
+                                        <Label Text="{Binding days}" IsVisible="{Binding days}" FontSize="13"></Label>
+                                        <Label Text="day" IsVisible="{Binding days}" FontSize="13"></Label>
+
+                                        <Label Text="$" IsVisible="{Binding isPaid}" TextColor="Green" HorizontalOptions="EndAndExpand"/>
+                                        <Label Text="{Binding price}" IsVisible="{Binding isPaid}"  TextColor="Green"/>
+                                    </StackLayout>
+
+                                    <StackLayout Orientation="Horizontal">
+                                        <Label Text="{Binding vehicleNum}" FontSize="15" TextColor="DeepSkyBlue"/>
+                                    </StackLayout>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

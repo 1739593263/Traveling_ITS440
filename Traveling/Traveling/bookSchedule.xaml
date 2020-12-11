@@ -33,8 +33,8 @@
                 <StackLayout Grid.Row="1" 
                              HorizontalOptions="CenterAndExpand" 
                              Orientation="Vertical">
-                    
-                    <Stepper Minimum="0" Maximum="5" x:Name="stepper" Increment="1" ValueChanged="OnStepperValueChanged" HorizontalOptions="Center"></Stepper>
+
+                    <Stepper Maximum="5"  Minimum="0" x:Name="stepper" Increment="1" ValueChanged="OnStepperValueChanged" HorizontalOptions="Center"></Stepper>
                     <StackLayout Orientation="Horizontal">
                         <Label Text="You will pay: $"></Label>
                         <Label x:Name="sum" ></Label>

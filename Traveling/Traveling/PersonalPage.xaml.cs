@@ -48,14 +48,29 @@ namespace Traveling
             }
         }
 
+        async void toUp(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new userUnPaid());
+        }
+
+        async void toP(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new userPay());
+        }
+
+        async void toAp(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new userAllorder());
+        }
+
         async void toAd(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new userMessage());
+            await Navigation.PushAsync(new userPay());
         }
 
         async void toHt(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new userHotel());
+            await Navigation.PushAsync(new userAllorder());
         }
     }
 }

@@ -62,6 +62,26 @@ namespace Traveling.Services
             return transactionList;
         }
 
+        public async static Task<List<Transaction>> GetTransactionById(string uid)
+        {
+            var transactionList = new List<Transaction>();
+
+            if (!await Initialize()) return transactionList;
+
+            var itemQuery = docClient.CreateDocumentQuery<Transaction>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(trans => trans.userId == uid)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Transaction>();
+                transactionList.AddRange(queryResult);
+            }
+            return transactionList;
+        }
+
         public async static Task<List<Transaction>> GetUPTransaction(string uid)
         {
             var transactionList = new List<Transaction>();

@@ -36,14 +36,23 @@
                              BackgroundColor="WhiteSmoke" 
                              Padding="20">
                     <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
-                        <Image WidthRequest="30" Source="unpaid.png"></Image>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="toUp"/>
+                        </StackLayout.GestureRecognizers>
+                        <Image WidthRequest="30" Source="un_paid.png"></Image>
                         <Label Text="Not Paid" TextColor="Gray"></Label>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
-                        <Image WidthRequest="30" Source="paid.png"></Image>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="toP"/>
+                        </StackLayout.GestureRecognizers>
+                        <Image WidthRequest="30" Source="pay.png"></Image>
                         <Label Text="Paid" TextColor="Gray"></Label>
                     </StackLayout>
                     <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="toAp"/>
+                        </StackLayout.GestureRecognizers>
                         <Image WidthRequest="30" Source="allorder.png"></Image>
                         <Label Text="All Order" TextColor="Gray"></Label>
                     </StackLayout>

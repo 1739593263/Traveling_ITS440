@@ -195,10 +195,10 @@
     <AndroidResource Include="Resources\drawable\loginhead.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\paid.png" />
+    <AndroidResource Include="Resources\drawable\un_paid.png" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\drawable\unpaid.png" />
+    <AndroidResource Include="Resources\drawable\pay.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\allorder.png" />

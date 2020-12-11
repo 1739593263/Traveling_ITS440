@@ -8412,7 +8412,7 @@ namespace Traveling.Droid
 			public const int order = 2131165318;
 			
 			// aapt resource value: 0x7F070087
-			public const int paid = 2131165319;
+			public const int pay = 2131165319;
 			
 			// aapt resource value: 0x7F070088
 			public const int personal = 2131165320;
@@ -8462,11 +8462,11 @@ namespace Traveling.Droid
 			// aapt resource value: 0x7F070097
 			public const int Trump = 2131165335;
 			
-			// aapt resource value: 0x7F070099
-			public const int unpaid = 2131165337;
-			
 			// aapt resource value: 0x7F07009A
 			public const int unsolved = 2131165338;
+			
+			// aapt resource value: 0x7F070099
+			public const int un_paid = 2131165337;
 			
 			// aapt resource value: 0x7F07009C
 			public const int usertable = 2131165340;

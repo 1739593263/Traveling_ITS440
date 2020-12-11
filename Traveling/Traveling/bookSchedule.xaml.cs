@@ -21,9 +21,12 @@ namespace Traveling
         string Sort = "";
         string ID;
 
-        Train _train;
-        Schedule _schedule;
+        Train _train = new Train();
+        Schedule _schedule = new Schedule();
         Transaction transaction;
+
+        int seats;
+
         public class grade
         {
             public string type { get; set; }
@@ -125,11 +128,27 @@ namespace Traveling
             await CosmosTransService.UpdateTransaction(transaction);
         }
 
+        async Task ExecuteUpdatevehicle()
+        {
+            if (Sort == "Flight")
+            {
+                await CosmosScheduleDBService.UpdateSchedule(_schedule);
+            }
+            else if (Sort == "Train")
+            {
+                await CosmosTrainTableService.UpdateTrain(_train);
+            }
+            else return;
+        }
+
         async void bookIt(object snder, EventArgs e)
         {
             await ExecuteGetTransCommand();
             transaction.price = value * newList[tapped_num].price;
-            if (transaction.price > 0) {
+
+
+            if (transaction.price > 0)
+            {
                 transaction.isPaid = 1;
                 await ExecuteUpdateTrans();
 
@@ -139,6 +158,23 @@ namespace Traveling
             {
                 await DisplayAlert("ERROR", "Please complete the information", "OK");
             }
+
+            // change seat quantity
+            if (_schedule != null)
+            {
+                if (type == "Economy") _schedule.economy -= (int)value;
+                else if (type == "Business") _schedule.business -= (int)value;
+                else _schedule.first -= (int)value;
+                await ExecuteUpdatevehicle();
+            }
+            else if (_train != null)
+            {
+                if (type == "Economy") _train.economy -= (int)value;
+                else if (type == "Business") _train.business -= (int)value;
+                else _train.first -= (int)value;
+                await ExecuteUpdatevehicle();
+            }
+            else return;
         }
     }
 }
