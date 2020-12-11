@@ -68,6 +68,13 @@ namespace Traveling
             item4.Clicked += toTrain;
             this.ToolbarItems.Add(item4);
 
+            ToolbarItem item5 = new ToolbarItem
+            {
+                Text = "Car",
+                Order = ToolbarItemOrder.Secondary,
+            };
+            item5.Clicked += toCar;
+            this.ToolbarItems.Add(item5);
         }
 
         async void toLogin(object sender, EventArgs e)
@@ -100,6 +107,11 @@ namespace Traveling
         async void toTrain(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TrainPage());
+        }
+
+        async void toCar(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new CarPage());
         }
     }
 }

@@ -28,5 +28,10 @@ namespace Traveling.adminPage
         async void TT_Click(object sender, EventArgs e) {
             await Navigation.PushAsync(new TrainTable());
         }
+
+        async void LT_Click(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new LocationTable());
+        }
     }
 }

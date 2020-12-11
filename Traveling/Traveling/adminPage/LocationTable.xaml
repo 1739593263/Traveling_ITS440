@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Traveling.adminPage.LocationTable">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <StackLayout Orientation="Vertical" 
+                             Grid.Row="0" 
+                             BackgroundColor="White">
+                        <StackLayout Orientation="Horizontal">
+                            <Entry x:Name="place" WidthRequest="100" Placeholder="Enter a place"></Entry>
+                        </StackLayout>
+                        <StackLayout Orientation="Horizontal">
+                            <Button Text="Search" Clicked="searchSchedule"/>
+                            <Button Text="Add" Clicked="insert"/>
+                        </StackLayout>
+                    </StackLayout>
+                    <ListView x:Name="PlacesList" 
+                          HeightRequest="400" 
+                          RowHeight="100" 
+                          ItemsSource="{Binding PlacesList}"
+                          Grid.Row="1" 
+                          BackgroundColor="White">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <ViewCell.ContextActions>
+                                        <MenuItem Text="delete" Clicked="delete" CommandParameter="{Binding Id}"></MenuItem>
+                                    </ViewCell.ContextActions>
+                                    <StackLayout Orientation="Vertical" HeightRequest="1500">
+                                        <Label Text="{Binding Id}" FontSize="15" TextColor="LightGray"/>
+                                        <Label Text="{Binding place}" FontSize="30" TextColor="OrangeRed"/>
+                                    </StackLayout>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

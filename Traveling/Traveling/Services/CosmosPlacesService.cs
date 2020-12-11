@@ -67,5 +67,87 @@ namespace Traveling.Services
             }
             return places;
         }
+
+        public async static Task<List<Places>> GetPlacesList()
+        {
+            List<Places> PlacesList = new List<Places>();
+
+            if (!await Initialize()) return null;
+
+            var itemQuery = docClient.CreateDocumentQuery<Places>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Places>();
+                PlacesList.AddRange(queryResult);
+            }
+
+            return PlacesList;
+        }
+
+        public async static Task<List<Places>> SearchPlaces(string p)
+        {
+            List<Places> PlacesList = new List<Places>();
+
+            if (!await Initialize()) return null;
+
+            var itemQuery = docClient.CreateDocumentQuery<Places>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(place => place.place.Contains(p))
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Places>();
+                PlacesList.AddRange(queryResult);
+            }
+
+            return PlacesList;
+        }
+
+        public async static Task<Places> GetPlaceById(string id)
+        {
+            var placesList = new List<Places>();
+            Places place = new Places();
+
+            if (!await Initialize()) return place;
+
+            var itemQuery = docClient.CreateDocumentQuery<Places>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(places => places.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Places>();
+                placesList.AddRange(queryResult);
+
+                place = placesList[0];
+            }
+            return place;
+        }
+
+        public async static Task InsertPlace(Places place)
+        {
+            if (!await Initialize()) return;
+
+            await docClient.CreateDocumentAsync(
+                UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                place);
+        }
+
+        public async static Task DeletePlace(Places place)
+        {
+            if (!await Initialize()) return;
+
+            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, place.Id);
+            await docClient.DeleteDocumentAsync(docUri, new RequestOptions() { PartitionKey = new PartitionKey(Undefined.Value) });
+
+        }
     }
 }

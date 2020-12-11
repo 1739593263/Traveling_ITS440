@@ -1,12 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Traveling.CarPage">
+             x:Class="Traveling.CarPage"
+             xmlns:system="clr-namespace:System;assembly=mscorlib">
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+        <StackLayout Orientation="Vertical" Padding="10">
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="source" FontSize="25" Placeholder="Where are you?" HorizontalOptions="StartAndExpand"/>
+                <Label Text="TO" FontSize="30" TextColor="skyblue" HorizontalOptions="CenterAndExpand"/>
+                <Entry x:Name="destination" FontSize="25" Placeholder="Where are go?" HorizontalOptions="StartAndExpand"/>
+            </StackLayout>
+            <DatePicker x:Name="date" Format="MM/dd/yyyy" MaximumDate="12/31/2021" MinimumDate="{x:Static system:DateTime.Today}" WidthRequest="30"/>
+            <TimePicker x:Name="sourceTime" Format="HH:MM" WidthRequest="30"/>
+            <Button Text="call a car" BackgroundColor="SkyBlue" Clicked="call"></Button>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Approximate amount: $" TextColor="Green" FontSize="20" HorizontalOptions="EndAndExpand"/>
+                <Label x:Name="amount" TextColor="Green" FontSize="20"></Label>
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

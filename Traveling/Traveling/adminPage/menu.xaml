@@ -42,8 +42,11 @@
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Grid.Row="1">
                     <StackLayout Orientation="Vertical" Grid.Column="0" Padding="15">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="LT_Click"/>
+                        </StackLayout.GestureRecognizers>
                         <Image Source="order.png" VerticalOptions="CenterAndExpand" WidthRequest="40" HeightRequest="40"/>
-                        <Label Text="Order Table" VerticalOptions="EndAndExpand"></Label>
+                        <Label Text="Location Table" VerticalOptions="EndAndExpand"></Label>
                     </StackLayout>
                 </StackLayout>
             </Grid>

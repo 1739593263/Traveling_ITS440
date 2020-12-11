@@ -9,6 +9,22 @@ namespace Traveling.Models
 {
     class Places: INotifyPropertyChanged
     {
+        string _Id;
+        [JsonProperty("id")]
+        public string Id
+        {
+            get => _Id;
+
+            set
+            {
+                if (_Id == value) return;
+
+                _Id = value;
+
+                HandlePropertyChanged();
+            }
+        }
+
         string _place;
         [JsonProperty("Place")]
         public string place {
