@@ -16,12 +16,13 @@ namespace Traveling.adminPage
     {
         FlightTableViewModel flightTableViewModel;
         PlacesViewModel placesViewModel;
-        List<Schedule> flightLists;
+        List<Schedule> flightLists = new List<Schedule>();
         int avail = 0;
         int tap_num;
         Schedule flightline;
         Schedule add_flightline;
 
+        string ID;
         string st;
         string et;
         public FlightTable()
@@ -41,13 +42,55 @@ namespace Traveling.adminPage
             da.IsEnabled = true;
             update.IsEnabled = true;
             delete.IsEnabled = true;
-
+            
             tap_num = e.ItemIndex;
+            
             flightline = flightTableViewModel.FlightList[tap_num];
             st = flightline.sourceTime;
             et = flightline.destinationTime;
 
-            Console.WriteLine("asd "+ flightline.destinationTime+" ");
+            Console.WriteLine("asd " + flightline.destinationTime + " ");
+        }
+
+        async void select(object sender, SelectedItemChangedEventArgs e)
+        {
+            var si = e.SelectedItem as Schedule;
+            ID = si.Id;
+
+            sa.IsEnabled = true;
+            da.IsEnabled = true;
+            update.IsEnabled = true;
+            delete.IsEnabled = true;
+
+            tap_num = e.SelectedItemIndex;
+            flightline = new Schedule();
+            flightline = await CosmosScheduleDBService.GetFlightById(ID);
+
+            // For update new created item
+            if (flightLists.Count != 0)
+            {
+                flightline.sourceTime = flightLists[tap_num].sourceTime;
+                flightline.destinationTime = flightLists[tap_num].destinationTime;
+                flightline.price = flightLists[tap_num].price;
+                flightline.company = flightLists[tap_num].company;
+                flightline.airplane = flightLists[tap_num].airplane;
+                flightline.days = flightLists[tap_num].days;
+            }
+            else
+            {
+                flightline.sourceTime = flightTableViewModel.FlightList[tap_num].sourceTime;
+                flightline.destinationTime = flightTableViewModel.FlightList[tap_num].destinationTime;
+                flightline.price = flightTableViewModel.FlightList[tap_num].price;
+                flightline.company = flightTableViewModel.FlightList[tap_num].company;
+                flightline.airplane = flightTableViewModel.FlightList[tap_num].airplane;
+                flightline.days = flightTableViewModel.FlightList[tap_num].days;
+            }
+
+            //flightline = flightTableViewModel.FlightList[tap_num];
+            st = flightline.sourceTime;
+            et = flightline.destinationTime;
+
+            Console.WriteLine(tap_num+" "+flightline.airplane);
         }
 
         async Task ExecuteSearchCommand()
@@ -70,10 +113,12 @@ namespace Traveling.adminPage
             await CosmosScheduleDBService.UpdateSchedule(flightline);
             if (flightline.isAvailable == 0)
             {
+                flightTableViewModel.FlightList[tap_num].isAvailable = 0;
                 await DisplayAlert("SUCCESS", "this line no longer available", "OK");
             }
-            else if(flightline.isAvailable == 1)
+            else if (flightline.isAvailable == 1)
             {
+                flightTableViewModel.FlightList[tap_num].isAvailable = 1;
                 await DisplayAlert("SUCCESS", "this line is available", "OK");
             }
             else
@@ -105,7 +150,7 @@ namespace Traveling.adminPage
             {
                 await DisplayAlert("Error", "the same source and destination", "retry");
             }
-            else if (sou == null || des == null) 
+            else if (sou == null || des == null)
             {
                 await DisplayAlert("Error", "please input source and destination", "retry");
             }
@@ -149,11 +194,11 @@ namespace Traveling.adminPage
                 await Navigation.PopAsync();
             }
         }
-        async void plusAvail(object sender, EventArgs e) 
+        async void plusAvail(object sender, EventArgs e)
         {
             avail = 1;
-            if(flightline.price <= 0 &&
-                flightline.company == null && 
+            if (flightline.price <= 0 &&
+                flightline.company == null &&
                 flightline.sourceTime == flightline.destinationTime)
             {
                 await DisplayAlert("ERROR", "please complete Info of tapped item", "OK");
@@ -161,7 +206,7 @@ namespace Traveling.adminPage
             else
             {
                 flightline.isAvailable = 1;
-                await ExecuteAvailable(); 
+                await ExecuteAvailable();
             }
         }
 
@@ -172,7 +217,7 @@ namespace Traveling.adminPage
             await ExecuteAvailable();
         }
 
-        async void toupdate(object sender, EventArgs e) 
+        async void toupdate(object sender, EventArgs e)
         {
             flightline.price2 = flightline.price + 50;
             flightline.price3 = flightline.price + 100;
@@ -185,13 +230,13 @@ namespace Traveling.adminPage
                 await DisplayAlert("ERROR", "invalid time format", "OK");
                 return;
             }
-            else 
+            else
             {
                 bool s1 = int.TryParse(ss[0], out i);
                 bool s2 = int.TryParse(ss[1], out i);
                 bool e1 = int.TryParse(ee[0], out i);
                 bool e2 = int.TryParse(ee[1], out i);
-                if(s1 && s2 && e1 && e2)
+                if (s1 && s2 && e1 && e2)
                 {
                     await ExecuteUpdate();
                 }
@@ -203,7 +248,7 @@ namespace Traveling.adminPage
             }
         }
 
-        async void todelete(object sender, EventArgs e) 
+        async void todelete(object sender, EventArgs e)
         {
             await ExecuteDelete();
             await Navigation.PushAsync(new loading());

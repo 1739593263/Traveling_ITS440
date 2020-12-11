@@ -37,9 +37,9 @@
                 <ListView x:Name="FlightList" 
                           HeightRequest="400" 
                           RowHeight="140" 
-                          ItemsSource="{Binding FlightList}" 
+                          ItemsSource="{Binding FlightList}"
                           Grid.Row="2" 
-                          ItemTapped="tap" 
+                          ItemSelected="select"
                           BackgroundColor="White">
                     <ListView.ItemTemplate>
                         <DataTemplate>
@@ -53,7 +53,7 @@
 
                                     <StackLayout Orientation="Horizontal">
                                         <Label Text="{Binding date}" FontSize="15"></Label>
-                                        
+
                                         <Editor Text="{Binding sourceTime}" Placeholder="HH:MM" WidthRequest="50" FontSize="15" MaxLength="5"></Editor>
                                         <Label Text="—>"/>
                                         <Editor Text="{Binding destinationTime}" Placeholder="HH:MM" WidthRequest="50" FontSize="15" MaxLength="5"></Editor>
@@ -63,7 +63,7 @@
                                         <Label Text="—>"/>
                                         <Label Text="{Binding destinationTime}" FontSize="15"></Label>
                                         -->
-                                        
+
                                         <Label Text="+"  FontSize="13"></Label>
                                         <Entry Text="{Binding days}" FontSize="13"></Entry>
                                         <Label Text="day" FontSize="13"></Label>

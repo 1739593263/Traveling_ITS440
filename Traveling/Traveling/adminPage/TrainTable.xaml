@@ -40,7 +40,7 @@
                           RowHeight="150" 
                           ItemsSource="{Binding TrainList}" 
                           Grid.Row="2" 
-                          ItemTapped="tap" 
+                          ItemSelected="select"
                           BackgroundColor="White">
                     <ListView.ItemTemplate>
                         <DataTemplate>

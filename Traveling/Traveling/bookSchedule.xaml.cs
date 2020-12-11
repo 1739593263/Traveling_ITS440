@@ -48,6 +48,8 @@ namespace Traveling
             await ExecuteGetMaximum();
 
             type = newList[e.ItemIndex].type;
+
+            // limit the maximum of stepper through the number of seats
             if (type == "Economy")
             {
                 if(Sort == "Flight")   stepper.Maximum = _schedule.economy;

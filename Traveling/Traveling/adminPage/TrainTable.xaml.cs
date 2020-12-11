@@ -17,12 +17,13 @@ namespace Traveling.adminPage
         TrainTableViewModel trainViewModel;
         PlacesViewModel placesViewModel;
 
-        List<Train> trainLists;
+        List<Train> trainLists = new List<Train>();
         int avail = 0;
         int tap_num;
         Train trainline;
         Train add_trainline;
 
+        string ID;
         string st;
         string et;
         public TrainTable()
@@ -52,6 +53,45 @@ namespace Traveling.adminPage
             Console.WriteLine("asd " + trainline.destinationTime + " ");
         }
 
+        async void select(object sender, SelectedItemChangedEventArgs e)
+        {
+            var si = e.SelectedItem as Train;
+            ID = si.Id;
+
+            sa.IsEnabled = true;
+            da.IsEnabled = true;
+            update.IsEnabled = true;
+            delete.IsEnabled = true;
+
+            tap_num = e.SelectedItemIndex;
+            trainline = new Train();
+            trainline = await CosmosTrainTableService.SearchTrainById(ID);
+
+            // For update new created item
+            if (trainLists.Count != 0)
+            {
+                trainline.sourceTime = trainLists[tap_num].sourceTime;
+                trainline.destinationTime = trainLists[tap_num].destinationTime;
+                trainline.price = trainLists[tap_num].price;
+                trainline.company = trainLists[tap_num].company;
+                trainline.line = trainLists[tap_num].line;
+                trainline.days = trainLists[tap_num].days;
+            }
+            else
+            {
+                trainline.sourceTime = trainViewModel.TrainList[tap_num].sourceTime;
+                trainline.destinationTime = trainViewModel.TrainList[tap_num].destinationTime;
+                trainline.price = trainViewModel.TrainList[tap_num].price;
+                trainline.company = trainViewModel.TrainList[tap_num].company;
+                trainline.line = trainViewModel.TrainList[tap_num].line;
+                trainline.days = trainViewModel.TrainList[tap_num].days;
+            }
+
+            //flightline = flightTableViewModel.FlightList[tap_num];
+            st = trainline.sourceTime;
+            et = trainline.destinationTime;
+        }
+
         async Task ExecuteSearchCommand()
         {
             string s = SDate.Date.ToString();
@@ -72,10 +112,12 @@ namespace Traveling.adminPage
             await CosmosTrainTableService.UpdateTrain(trainline);
             if (trainline.isAvailable == 0)
             {
+                trainViewModel.TrainList[tap_num].isAvailable = 0;
                 await DisplayAlert("SUCCESS", "this line no longer available", "OK");
             }
             else if (trainline.isAvailable == 1)
             {
+                trainViewModel.TrainList[tap_num].isAvailable = 1;
                 await DisplayAlert("SUCCESS", "this line is available", "OK");
             }
             else
@@ -155,8 +197,10 @@ namespace Traveling.adminPage
         async void plusAvail(object sender, EventArgs e)
         {
             avail = 1;
+            Console.WriteLine(trainline.line+ " " + trainline.Id);
+            
             if (trainline.price <= 0 &&
-                trainline.company == null &&
+                trainline.line == null &&
                 trainline.sourceTime == trainline.destinationTime)
             {
                 await DisplayAlert("ERROR", "please complete Info of tapped item", "OK");

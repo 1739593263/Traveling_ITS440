@@ -194,5 +194,54 @@ namespace Traveling.Services
 
             return schedule;
         }
+
+        public async static Task UpdateScheduleById(string id)
+        {
+            if (!await Initialize()) return;
+
+            Schedule schedule = new Schedule();
+            var scheduleList = new List<Schedule>();
+
+            var itemQuery = docClient.CreateDocumentQuery<Schedule>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(sch => sch.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Schedule>();
+                scheduleList.AddRange(queryResult);
+            }
+            schedule = scheduleList[0];
+
+            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, schedule.Id);
+            await docClient.ReplaceDocumentAsync(docUri, schedule);
+        }
+
+
+        public async static Task DeleteSchduleById(string id)
+        {
+            if (!await Initialize()) return;
+
+            Schedule schedule = new Schedule();
+            var scheduleList = new List<Schedule>();
+
+            var itemQuery = docClient.CreateDocumentQuery<Schedule>(
+                    UriFactory.CreateDocumentCollectionUri(databaseName, collectionName),
+                    new FeedOptions { MaxItemCount = -1, EnableCrossPartitionQuery = true })
+                .Where(sch => sch.Id == id)
+                .AsDocumentQuery();
+
+            while (itemQuery.HasMoreResults)
+            {
+                var queryResult = await itemQuery.ExecuteNextAsync<Schedule>();
+                scheduleList.AddRange(queryResult);
+            }
+            schedule = scheduleList[0];
+
+            var docUri = UriFactory.CreateDocumentUri(databaseName, collectionName, schedule.Id);
+            await docClient.DeleteDocumentAsync(docUri, new RequestOptions() { PartitionKey = new PartitionKey(Undefined.Value) });
+        }
     }
 }
