@@ -17,27 +17,25 @@ namespace Traveling
             InitializeComponent();
         }
 
-        async void OnButtonAirportClicked(object sender, EventArgs e)
+
+        async void toReserve(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new BuyFlightPage());
         }
 
-        async void OnButtonTrainClicked(object sender, EventArgs e)
+        async void toHotel(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync(new HotelPage());
+        }
+
+        async void toTrain(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new TrainPage());
         }
 
-        async void OnButtonCarClicked(object sender, EventArgs e)
+        async void toCar(object sender, EventArgs e)
         {
             await Navigation.PushAsync(new CarPage());
-        }
-        async void OnButtonHotelClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new HotelPage());
-        }
-        async void OnButtonScenicClicked(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new ScenicPage());
         }
     }
 }

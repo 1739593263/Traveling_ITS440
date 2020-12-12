@@ -1,13 +1,91 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Traveling.MainJobPage">
+             x:Class="Traveling.MainJobPage" 
+             BackgroundImageSource="mainJobPage.jpg">
     
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Grid HorizontalOptions="EndAndExpand" BackgroundColor="White">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <StackLayout Grid.Row="1" Orientation="Horizontal">
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="toReserve"/>
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="MainJobAirplane.png" WidthRequest="30"></Image>
+                        <Label Text="Flight" TextColor="Gray"></Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="toCar"/>
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="MainJobCar.png" WidthRequest="30"></Image>
+                        <Label Text="Car" TextColor="Gray"></Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="toTrain"/>
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="MainJobTrain.png" WidthRequest="30"></Image>
+                        <Label Text="Train" TextColor="Gray"></Label>
+                    </StackLayout>
+
+                    <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="toHotel"/>
+                        </StackLayout.GestureRecognizers>
+                        <Image Source="MainJobHotel.png" WidthRequest="30"></Image>
+                        <Label Text="Hotel" TextColor="Gray"></Label>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Grid.Row="2" Padding="10">
+                    <Label Text="Are you ready to GO !?" TextColor="LightSteelBlue" FontSize="20" FontAttributes="Bold"/>
+                    <ScrollView>
+                        <StackLayout Orientation="Vertical">
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical" Padding="3" BackgroundColor="WhiteSmoke">
+                                    <Image Source="yellowstone.jfif" WidthRequest="190"></Image>
+                                    <Label Text="Yellostone National Park" HorizontalOptions="Center" FontSize="15"></Label>
+                                    <Label Text="$ 2+" HorizontalOptions="End" TextColor="red"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical" Padding="3" BackgroundColor="WhiteSmoke">
+                                    <Image Source="bean.jfif" WidthRequest="190"></Image>
+                                    <Label Text="the bean" HorizontalOptions="Center" FontSize="15"></Label>
+                                    <Label Text="$ 2+" HorizontalOptions="End" TextColor="red"></Label>
+                                </StackLayout>
+                            </StackLayout>
+
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout Orientation="Vertical" Padding="3" BackgroundColor="WhiteSmoke">
+                                    <Image Source="SanFanScenery.jpg" WidthRequest="190"></Image>
+                                    <Label Text="San Francisco" HorizontalOptions="Center" FontSize="15"></Label>
+                                    <Label Text="$ 5+" HorizontalOptions="End" TextColor="red"></Label>
+                                </StackLayout>
+                                <StackLayout Orientation="Vertical" BackgroundColor="WhiteSmoke">
+                                    <StackLayout Orientation="Vertical" Padding="3" BackgroundColor="WhiteSmoke">
+                                        <Image Source="NYScenery.jpg" WidthRequest="190"></Image>
+                                        <Label Text="New York" HorizontalOptions="Center" FontSize="15"></Label>
+                                        <Label Text="$ 3+" HorizontalOptions="End" TextColor="red"></Label>
+                                    </StackLayout>
+                                    <StackLayout Orientation="Vertical" Padding="3" BackgroundColor="WhiteSmoke">
+                                        <Image Source="flowserStreet.jpg" WidthRequest="190"></Image>
+                                        <Label Text="Flower Street" HorizontalOptions="Center" FontSize="15"></Label>
+                                        <Label Text="$ 5+" HorizontalOptions="End" TextColor="red"></Label>
+                                    </StackLayout>
+                                </StackLayout>
+                            </StackLayout>
+                        </StackLayout>
+                    </ScrollView>
+                </StackLayout>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

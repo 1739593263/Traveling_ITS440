@@ -17,18 +17,19 @@ namespace Traveling
         public Navigation()
         {
             InitializeComponent();
+
             if (CrossSecureStorage.Current.HasKey("username")) {
                 ToolbarItem item2 = new ToolbarItem
                 {
                     Text = "Hi! "+ CrossSecureStorage.Current.GetValue("lastname"),
-                    Order = ToolbarItemOrder.Secondary,
+                    Order = ToolbarItemOrder.Primary,
                 };
                 this.ToolbarItems.Add(item2);
 
                 ToolbarItem item0 = new ToolbarItem
                 {
                     Text = "sign out",
-                    Order = ToolbarItemOrder.Secondary,
+                    Order = ToolbarItemOrder.Primary,
                 };
                 item0.Clicked += toOut;
                 this.ToolbarItems.Add(item0);
@@ -38,43 +39,11 @@ namespace Traveling
                 ToolbarItem item0 = new ToolbarItem
                 {
                     Text = "Login",
-                    Order = ToolbarItemOrder.Secondary,
+                    Order = ToolbarItemOrder.Primary,
                 };
                 item0.Clicked += toLogin;
                 this.ToolbarItems.Add(item0);
             }
-
-            ToolbarItem item1 = new ToolbarItem
-            {
-                Text = "reserve",
-                Order = ToolbarItemOrder.Secondary,
-            };
-            item1.Clicked += toReserve;
-            this.ToolbarItems.Add(item1);
-
-            ToolbarItem item3 = new ToolbarItem
-            {
-                Text = "hotel",
-                Order = ToolbarItemOrder.Secondary,
-            };
-            item3.Clicked += toHotel;
-            this.ToolbarItems.Add(item3);
-
-            ToolbarItem item4 = new ToolbarItem
-            {
-                Text = "Train",
-                Order = ToolbarItemOrder.Secondary,
-            };
-            item4.Clicked += toTrain;
-            this.ToolbarItems.Add(item4);
-
-            ToolbarItem item5 = new ToolbarItem
-            {
-                Text = "Car",
-                Order = ToolbarItemOrder.Secondary,
-            };
-            item5.Clicked += toCar;
-            this.ToolbarItems.Add(item5);
         }
 
         async void toLogin(object sender, EventArgs e)
@@ -92,26 +61,6 @@ namespace Traveling
             CrossSecureStorage.Current.DeleteKey("lastname");
             CrossSecureStorage.Current.DeleteKey("mail");
             await Navigation.PushAsync(new Login());
-        }
-
-        async void toReserve(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new BuyFlightPage());
-        }
-
-        async void toHotel(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new HotelPage());
-        }
-
-        async void toTrain(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new TrainPage());
-        }
-
-        async void toCar(object sender, EventArgs e)
-        {
-            await Navigation.PushAsync(new CarPage());
         }
     }
 }
