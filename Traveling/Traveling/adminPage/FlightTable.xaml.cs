@@ -223,6 +223,9 @@ namespace Traveling.adminPage
             flightline.price3 = flightline.price + 100;
 
             int i = 0;
+            int j = 0;
+            int a = 0;
+            int b = 0;
             string[] ss = st.Split(':');
             string[] ee = et.Split(':');
             if (ss.Length != 2 && ee.Length != 2)
@@ -233,12 +236,15 @@ namespace Traveling.adminPage
             else
             {
                 bool s1 = int.TryParse(ss[0], out i);
-                bool s2 = int.TryParse(ss[1], out i);
-                bool e1 = int.TryParse(ee[0], out i);
-                bool e2 = int.TryParse(ee[1], out i);
+                bool s2 = int.TryParse(ss[1], out j);
+                bool e1 = int.TryParse(ee[0], out a);
+                bool e2 = int.TryParse(ee[1], out b);
+
+                await DisplayAlert("",i+":"+j+" "+a+":"+b,"OK");
                 if (s1 && s2 && e1 && e2)
                 {
-                    await ExecuteUpdate();
+                    if (i < 24 && j < 60 && a < 24 && b < 60) await ExecuteUpdate();
+                    else await DisplayAlert("","invalid time number","OK");
                 }
                 else
                 {

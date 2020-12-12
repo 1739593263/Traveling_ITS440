@@ -22,14 +22,14 @@ namespace Traveling
                 ToolbarItem item2 = new ToolbarItem
                 {
                     Text = "Hi! "+ CrossSecureStorage.Current.GetValue("lastname"),
-                    Order = ToolbarItemOrder.Primary,
+                    Order = ToolbarItemOrder.Secondary,
                 };
                 this.ToolbarItems.Add(item2);
 
                 ToolbarItem item0 = new ToolbarItem
                 {
                     Text = "sign out",
-                    Order = ToolbarItemOrder.Primary,
+                    Order = ToolbarItemOrder.Secondary,
                 };
                 item0.Clicked += toOut;
                 this.ToolbarItems.Add(item0);
