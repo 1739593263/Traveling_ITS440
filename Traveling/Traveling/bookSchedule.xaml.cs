@@ -144,8 +144,7 @@ namespace Traveling
         async void bookIt(object snder, EventArgs e)
         {
             await ExecuteGetTransCommand();
-            transaction.price = value * newList[tapped_num].price;
-
+            if(tapped_num >= 0) transaction.price = value * newList[tapped_num].price;
 
             if (transaction.price > 0)
             {
@@ -157,6 +156,7 @@ namespace Traveling
             else
             {
                 await DisplayAlert("ERROR", "Please complete the information", "OK");
+                return;
             }
 
             // change seat quantity

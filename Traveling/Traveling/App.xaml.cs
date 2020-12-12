@@ -10,7 +10,7 @@ namespace Traveling
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new Navigation());
+            MainPage = new NavigationPage(new Login());
         }
 
         protected override void OnStart()

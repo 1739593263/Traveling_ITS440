@@ -48,7 +48,7 @@
 
                 <StackLayout Grid.Row="2" Padding="10">
                     <Label Text="Are you ready to GO !?" TextColor="LightSteelBlue" FontSize="20" FontAttributes="Bold"/>
-                    <ScrollView>
+                    <ScrollView HeightRequest="520">
                         <StackLayout Orientation="Vertical">
                             <StackLayout Orientation="Horizontal">
                                 <StackLayout Orientation="Vertical" Padding="3" BackgroundColor="WhiteSmoke">

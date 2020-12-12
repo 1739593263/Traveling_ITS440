@@ -65,12 +65,12 @@ namespace Traveling
 
         async void toAd(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new userPay());
+            await Navigation.PushAsync(new userMessage());
         }
 
         async void toHt(object sender, EventArgs e)
         {
-            await Navigation.PushAsync(new userAllorder());
+            await Navigation.PushAsync(new userHotel());
         }
     }
 }
