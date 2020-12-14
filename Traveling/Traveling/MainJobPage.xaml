@@ -12,6 +12,7 @@
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
+                <Image Source="mainJobPage0.jfif"></Image>
                 <StackLayout Grid.Row="1" Orientation="Horizontal">
                     <StackLayout Orientation="Vertical" HorizontalOptions="CenterAndExpand">
                         <StackLayout.GestureRecognizers>
@@ -48,7 +49,7 @@
 
                 <StackLayout Grid.Row="2" Padding="10">
                     <Label Text="Are you ready to GO !?" TextColor="LightSteelBlue" FontSize="20" FontAttributes="Bold"/>
-                    <ScrollView HeightRequest="520">
+                    <ScrollView HeightRequest="400">
                         <StackLayout Orientation="Vertical">
                             <StackLayout Orientation="Horizontal">
                                 <StackLayout Orientation="Vertical" Padding="3" BackgroundColor="WhiteSmoke">

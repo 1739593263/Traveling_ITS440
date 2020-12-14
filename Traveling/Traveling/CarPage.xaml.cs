@@ -39,12 +39,12 @@ namespace Traveling
             transaction.sourceTime = st;
             transaction.isPaid = 1;
             transaction.vehicleSort = "car";
-            transaction.price = 50;
-            if(sourceAddress!=null && desAddress != null)
+            double p = new Random().Next(20, 120);
+            transaction.price = p;
+            if (sourceAddress!=null && desAddress != null)
             {
-                amount.Text = 50 + "";
+                amount.Text = p.ToString();
             }
-
             await InsertTransaction();
             /*string all = sourceAddress + "\n" + desAddress + "\n" + d[0] + "\n" + st;
             await DisplayAlert("", all, "OK");*/

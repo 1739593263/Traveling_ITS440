@@ -102,12 +102,21 @@ namespace Traveling
         async void bookIt(object sender, EventArgs e) {
             await ExecuteGetTransCommand();
 
-            string s = date.Date.ToString();
-            string[] dates = s.Split(' ');
-            hotelt.date = dates[0];
-            hotelt.days = (int)stepper.Value;
-            hotelt.roomType = newList[tapped_num].type;
-            hotelt.price = value * newList[tapped_num].price;
+            if (tapped_num >= 0)
+            {
+                string s = date.Date.ToString();
+                string[] dates = s.Split(' ');
+                hotelt.date = dates[0];
+                hotelt.days = (int)stepper.Value;
+                hotelt.roomType = newList[tapped_num].type;
+                hotelt.price = value * newList[tapped_num].price;
+            }
+            else
+            {
+                await DisplayAlert("ERROR", "please choose your room", "OK");
+                return;
+            }
+            
 
             await ExecuteSearchById();
             // check the vacant 
